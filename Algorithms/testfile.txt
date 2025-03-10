@@ -1,0 +1,1 @@
+Successfully wrote in read-write mode

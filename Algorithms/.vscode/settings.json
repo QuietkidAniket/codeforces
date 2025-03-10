@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "socket.h": "c",
+        "ios": "cpp",
+        "unordered_map": "cpp",
+        "vector": "cpp",
+        "ostream": "cpp"
+    }
+}

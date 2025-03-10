@@ -1,0 +1,221 @@
+{
+	// Place your snippets for cpp here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+
+    "cpp snippets": 
+    { 
+        "prefix" : "boilerplate1", 
+                   "body" : [ 
+                       "#include <bits/stdc++.h>",
+                        "using namespace std;",
+                        "typedef long double ld;",
+                        "typedef long long ll;",
+                        "mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());", 
+                        "bool multi = true;",
+                        "static const int mod = 1e9 + 7;",
+                        "",
+                        "void Solve(){",
+                        "\t",
+                        "\t",
+                        "}",
+                        "int main()",
+                        "{", 
+                        "\tios::sync_with_stdio(0);",
+                        "\tcin.tie(0);",
+                        "\t#ifndef ONLINE_JUDGE",
+                        "\tauto begin = std::chrono::high_resolution_clock::now();",
+                        "\tfreopen(\"$WORKSPACE_FOLDER/input.in\", \"r+\", stdin);",
+                        "\tfreopen(\"$WORKSPACE_FOLDER/output.out\", \"w\", stdout);",
+                        "\tint tt = clock();",
+                        "\t#endif",
+                        "\t",
+                        "\tint t = 1;",
+                        "\tif(multi)cin>> t;",
+                        "\twhile(t--){",
+                        "\tSolve();",
+                        "\tcout << endl;",
+                        "\t}",
+                        "\t#ifndef ONLINE_JUDGE",
+                        "\tauto end = std::chrono::high_resolution_clock::now();",
+                        "\tauto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);",
+                        "\tcerr << \"Time measured: \" << elapsed.count() * 1e-9 << \" seconds.\\n\"; ",
+                        "\t#endif",
+                        "\treturn 0;", 
+                        "}",
+                   ], 
+        "description" : "Competitive Programming snippet for C++ code"
+    },
+    "leetcode": 
+    { 
+        "prefix" : "leetcode", 
+                   "body" : [ 
+                       "#include <bits/stdc++.h>",
+                        "using namespace std;",
+                        "", 
+                        "void solve(){",
+                        "\tSolution obj;",
+                        "\tstring exp;",
+                        "\twhile( (cin >> exp) )",
+                        "\t",
+                        "\tcout << '\\n';",
+                        "}",
+                       "int main()",
+                       "{", 
+                       "\tios::sync_with_stdio(0);",
+                       "\tcin.tie(0);",
+                       "\tcout.tie(0);",
+                       "\tfreopen(\"$WORKSPACE_FOLDER/input.in\", \"r+\", stdin);",
+                        "\tfreopen(\"$WORKSPACE_FOLDER/output.out\", \"w\", stdout);",
+                       "\tsolve();",
+                       "\t",
+                       "\t",
+                       "\treturn 0;", 
+                       "}"
+  
+                   ], 
+        "description" : "Competitive Programming snippet for C++ code"
+    },
+    "Disjoint Set":{
+        "prefix": "DSU",
+        "body": [
+        "class DisjointSet{",
+            "vector<int> parent, size;",
+            "public:",
+            "DisjointSet(int n){",
+            "    parent.resize(n+1);",
+            "    size.resize(n+1, 1);",
+            "    // for 1 based indexing and 0 based indexing both",
+            "    for(int i = 0 ;i <= n ;i++){",
+            "        parent[i]= i;",
+            "    }",
+            "}",
+            "",
+            "int findUPar(int node){",
+            "    if(node == parent[node])return node;",
+            "    return parent[node] = findUPar(parent[node]);",
+            "}",
+            "",
+            "void unionBySize(int u, int v){",
+            "    int ulp_u = findUPar(u);",
+            "    int ulp_v = findUPar(v);",
+            "",
+            "    if(ulp_u == ulp_v)return;",
+            "    if(size[ulp_u] > size[ulp_v]){",
+            "        parent[ulp_v] = ulp_u;",
+            "        size[ulp_u] += size[ulp_v];",
+            "    }else{",
+            "        parent[ulp_u] = ulp_v;",
+            "        size[ulp_v] += size[ulp_u];",
+            "    }",
+            "}",
+        "};"
+        ],
+        "description": "to produce the snippet for Disjoint Set Union (DSU)"
+    },
+
+    "power": 
+    {
+    "prefix" : "power",
+        "body" : [
+            "int power(int x, int y) {",
+                "int res = 1;",
+                "x = x % mod; ",
+                "while (y > 0) {  ",
+                    "if (y & 1) ",
+                     "   res = (res * x) % mod;  ",
+                    "y = y >> 1;",
+                    "x = (x * x) % mod;   ",
+                "}" ,
+                "return res; ",
+            "}"
+            ],
+            "description": "to produce snippet for power code compatible with mod"
+    },
+    "input": 
+    {
+    "prefix" : "ci",
+        "body" : [
+                "cin >> ",
+            ],
+            "description": "to produce the snippet for cin >> "
+    },
+    "output": 
+    {
+    "prefix" : "co",
+        "body" : [
+            "cout << ",
+            ],
+            "description": "to produce the snippet for cout << "
+    },
+    
+    "for loop": 
+    {
+    "prefix" : "fi",
+        "body" : [
+            "for(int i = 0; i< n; i++)",
+            "{",
+            "\t",
+            "}",
+            ],
+            "description": "to produce the snippet for for loop"
+    },
+
+    "for loop with variable j": 
+    {
+    "prefix" : "fj",
+        "body" : [
+            "for(int j = 0; j< n; j++)",
+            "{",
+            "\t",
+            "}",
+            ],
+            "description": "to produce the snippet for for loop"
+    },
+
+    "input loop": 
+    {
+    "prefix" : "li",
+        "body" : [
+            "for(int i = 0; i< n; i++)",
+            "{",
+            "\tcin >> arr[i];",
+            "}",
+            ],
+            "description": "to produce the snippet for input loop"
+    },
+    "display loop": 
+    {
+    "prefix" : "di",
+        "body" : [
+            "for(int i = 0; i< n; i++)",
+            "{",
+            "\tcout << arr[i] << \", \"; ",
+            "}",
+            "cout << '\\n';",
+            ],
+            "description": "to produce the snipper for display loop"
+    },
+    "for each loop": 
+    {
+    "prefix" : "efi",
+        "body" : [
+            "for(const auto& x : arr)",
+            "{",
+            "\t",
+            "}",
+            ],
+            "description": "to produce the snipper for for-each loop"
+    }
+
+}
