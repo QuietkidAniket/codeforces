@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
-#include <thread>
-#include "omp.h"
+#include <future>
 
 using namespace std;
 typedef long double ld;
@@ -25,14 +24,11 @@ void parallelMergeSort(vector<int>& data, int left, int right, int depth) {
         int mid = left + (right - left) / 2;
 
         if (depth > 0) {
-            #pragma omp parallel sections
-            {
-                #pragma omp section
-                parallelMergeSort(data, left, mid, depth - 1);
-                
-                #pragma omp section
-                parallelMergeSort(data, mid + 1, right, depth - 1);
-            }
+            // async : More portable and efficient for ARM architectures.
+            // Thread-based parallelism: Uses std::async instead of OpenMP, avoiding overhead on unsupported systems.
+            auto left_sort = async(launch::async, parallelMergeSort, ref(data), left, mid, depth - 1);
+            parallelMergeSort(data, mid + 1, right, depth - 1);
+            left_sort.wait();
         } else {
             sort(data.begin() + left, data.begin() + right + 1);
             return;
@@ -41,7 +37,6 @@ void parallelMergeSort(vector<int>& data, int left, int right, int depth) {
         merge(data, left, mid, right);
     }
 }
-
 
 void loadData(vector<int>& data, const string &filename) {
     ifstream file(filename);
@@ -57,15 +52,12 @@ void Solve() {
     int n;
     cin >> n;
     
-    int max_threads = std::thread::hardware_concurrency();
-    int depth = (max_threads > 1) ? log2(max_threads) : 1;
-    
+    int depth = thread::hardware_concurrency() > 1 ? log2(thread::hardware_concurrency()) : 1;
     
     while (n--) {
         parallelMergeSort(data, 0, data.size() - 1, depth);
     }
 }
-
 
 
 int main()
@@ -93,3 +85,4 @@ int main()
     #endif
     return 0;
 }
+

@@ -47,7 +47,7 @@ void Solve() {
     cin>> n;
     while(n--){
         mergeSort(data, 0, data.size() - 1);
-        cout << "Sorted! \n";
+        // cout << "Sorted! \n";
     }
     
     

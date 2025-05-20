@@ -69,7 +69,8 @@
         "typeindex": "cpp",
         "typeinfo": "cpp",
         "unordered_set": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "__config": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
