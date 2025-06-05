@@ -7,8 +7,34 @@ bool multi = true;
 static const int mod = 1e9 + 7;
 
 void Solve(){
-  
-  
+  int n, W; cin>> n >> W;
+  int cnt[31];
+  memset(cnt, 0, sizeof cnt);
+  vector<int> w(n);
+  int mask = 0;
+  for(int i = 0; i< n; i++)
+  {
+    cin >> w[i];
+    mask |= w[i];
+    int ind = floor(log2(w[i]));
+    cnt[ind]++;
+  }
+  int levels = 0;
+  while(mask > 0){
+    // fill each level to the maximum length
+    int length = W;
+    for(int i =30; i>=0 && length > 0; i--){
+      if(cnt[i] == 0)continue;
+      else{
+        int ntimes = length / (1 << i);
+        length = length - min(ntimes, cnt[i])*(1<<i);
+        cnt[i]-= min(ntimes, cnt[i]);
+        if(cnt[i] == 0)mask ^= (1 << i);
+      }
+    }
+    levels++;
+  }
+  cout << levels;
 }
 int main()
 {

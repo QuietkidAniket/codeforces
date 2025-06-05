@@ -7,8 +7,27 @@ bool multi = true;
 static const int mod = 1e9 + 7;
 
 void Solve(){
-  
-  
+  vector<int> cnt(1<<5, 0);
+  int n; cin>> n;
+  ll k; cin>> k;
+
+  for(int i = 0; i < n; i++){
+    int x; cin>>x;
+    for(int j = 0; j <=30; j++){
+      if(x & 1)cnt[j]++;
+      x >>= 1;
+    }
+  }
+  int mask = 0;
+  int i = 30;
+  while(k >= 0ll && i >= 0){
+    if(n - cnt[i] <= k){
+      k = k - (n -cnt[i]);
+      mask |= (1<<i);
+    }
+    i--;
+  }
+  cout << mask;
 }
 int main()
 {

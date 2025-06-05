@@ -1,35 +1,55 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define int long long
-int32_t main()
-{
-  ios::sync_with_stdio(false);
-  cin.tie(nullptr);
-  cout.tie(nullptr);
-  int t;
-  cin>> t;
-  while(t--){
-    int n;
-    cin >> n;
-    int arr[n];
-    map<int,int> mp;
-    for (int i = 1; i <= n; i++) {
-        cin >> arr[i];
-        mp[arr[i]] = i;
-    }
-  
-    int count = 0;
-    for (int i = 1; i <= 2*n; i++){
-        for (int j = i+1; j<=2*n; j++) {
-          if(i*j > 2*n)break;
-          int prod = i*j;
-          auto ind1 = mp.find(i);
-          auto ind2 = mp.find(j);
-          if(ind1 == mp.end() || ind2 == mp.end())continue;
-          if((*ind1).second + (*ind2).second == prod)count++;
-        }
-    }
-    cout << count<< endl;
+typedef long double ld;
+typedef long long ll;
+mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
+bool multi = true;
+static const int mod = 1e9 + 7;
+
+void Solve(){
+  int n;
+  cin >> n;
+  ll arr[n];
+  vector<pair<ll,ll>> pairs(n); // number, index
+  for(int i = 0; i< n; i++)
+  {
+    cin >> arr[i];
+    pairs[i] = {arr[i], i+1};
   }
+  sort(pairs.begin(), pairs.end());
+
+  int i = -1;
+  int res = 0;
+  while(++i < n && pairs[i].first <= n){
+    for(int j = i +1; j <n; j++){
+      if(pairs[i].first * pairs[j].first > 2*n)break;
+      res += ((pairs[i].first * pairs[j].first) == (pairs[i].second + pairs[j].second));
+    }
+  }
+  cout << res;
+  
+}
+int main()
+{
+  ios::sync_with_stdio(0);
+  cin.tie(0);
+  #ifndef ONLINE_JUDGE
+  auto begin = std::chrono::high_resolution_clock::now();
+  freopen("/Users/aniketkundu12072004/codeforces/input.in", "r+", stdin);
+  freopen("/Users/aniketkundu12072004/codeforces/output.out", "w", stdout);
+  int tt = clock();
+  #endif
+  
+  int t = 1;
+  if(multi)cin>> t;
+  while(t--){
+  Solve();
+  cout << endl;
+  }
+  #ifndef ONLINE_JUDGE
+  auto end = std::chrono::high_resolution_clock::now();
+  auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
+  cerr << "Time measured: " << elapsed.count() * 1e-9 << " seconds.\n"; 
+  #endif
   return 0;
 }

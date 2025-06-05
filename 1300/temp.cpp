@@ -7,8 +7,22 @@ bool multi = true;
 static const int mod = 1e9 + 7;
 
 void Solve(){
-  
-  
+ unordered_map<int,int> mp;
+  int x= 2;
+    for(int i = 2; i <= x; i++){
+      int cnt = 0;
+      if(x%i == 0)
+      {
+        while(x % i == 0){
+          x /= i;
+          cnt++;
+        }
+        mp[i] += cnt;
+      }
+    }
+  for(const auto& [x, freq] : mp){
+    cout << x  << " : "<< freq << endl;
+  }
 }
 int main()
 {

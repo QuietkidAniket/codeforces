@@ -6,9 +6,44 @@ mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 bool multi = true;
 static const int mod = 1e9 + 7;
 
+
 void Solve(){
-  
-  
+  int cnt[31];
+  memset(cnt, 0, sizeof cnt);
+  int n; cin>>n;
+  int arr[n];
+  bool allzero = true;
+  for(int i = 0; i< n; i++)
+  {
+    int x;cin >> x;
+    if(x != 0)allzero = false;
+    int ind = 0;
+    while(x > 0 && ind <=30){
+      if(x&1)cnt[ind]++;
+      x >>= 1;
+      ind++;
+    }
+  }
+  int res = 0;
+  for(int i = 0; i<= 30; i++)
+  {
+    if(cnt[i] > 0){
+      if(res == 0)res = cnt[i];
+      else res = gcd(res, cnt[i]);
+    }
+    if(res == 1)break;
+  }
+
+  if(allzero){
+    for(int i =0 ; i < n; i++){
+      cout << i+1 << " "; 
+    }
+  }else{
+    cout << 1 << " ";
+    for(int x = 2; x <= res; x++){
+      if(res%x == 0)cout << x << " ";
+    }
+  }
 }
 int main()
 {

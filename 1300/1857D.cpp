@@ -7,8 +7,29 @@ bool multi = true;
 static const int mod = 1e9 + 7;
 
 void Solve(){
-  
-  
+  int n; cin>> n;
+  vector<pair<int,int>> c(n);
+  for(int i = 0; i < n; i++){
+    c[i].second = i+1;
+    cin>> c[i].first;
+  }
+  for(int i = 0; i< n; i++)
+  {
+    int x;
+    cin>> x;
+    c[i].first -= x;
+  }
+  sort(c.rbegin(), c.rend());
+
+  int max_cv = c[0].first;
+  int i = 0;
+  vector<int> ans;
+  while(i < n && c[i].first == max_cv){
+    ans.push_back(c[i++].second);
+  }
+  sort(ans.begin(), ans.end());
+  cout << ans.size() << endl;
+  for(const auto& x: ans)cout << x << " ";
 }
 int main()
 {

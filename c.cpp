@@ -7,28 +7,8 @@ bool multi = true;
 static const int mod = 1e9 + 7;
 
 void Solve(){
-  ll x, k; cin>> x >>k;
-  if(x == 1 && k == 2){
-    cout << "YES";
-    return;
-  }
-  if(x == 1){
-    cout << "NO";
-    return;
-  }
-  if(k ==1){
-    bool flag = false;
-    for(ll i = 2; i*i <= x; i++){
-      if(x % i == 0){
-        flag = true;
-        break;
-      }
-    }
-    if(flag)cout << "NO";
-    else cout << "YES";
-  }else{
-      cout << "NO";
-  }
+  
+  
 }
 int main()
 {

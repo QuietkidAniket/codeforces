@@ -7,26 +7,8 @@ bool multi = true;
 static const int mod = 1e9 + 7;
 
 void Solve(){
-  string s; cin>> s;
-  int n = s.size();
-  // check for the indices for the first non zero element from right
-  int index = n-1;
-  for(int i = n-1; i >=0; i--){
-    if(s[i] == '0')continue;
-    else{
-      index = i;
-      break;
-    }
-  }
-  ll ans = n - 1 - index;
-  // cout << "index" << index<<endl;
-  // count all non zero elements before the indices from left
-  for(int i = 0; i< index; i++)
-  {
-    if(s[i] == '0')continue;
-    else ans++;
-  }
-  cout  << ans;
+  
+  
 }
 int main()
 {

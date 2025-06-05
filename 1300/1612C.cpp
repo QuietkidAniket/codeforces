@@ -6,9 +6,28 @@ mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 bool multi = true;
 static const int mod = 1e9 + 7;
 
+
+ll AP_SUM(ll k){
+  return (k*k + k)>>1;
+}
+
+ll find_sum(ll line, ll k){
+  if(line <= k)return AP_SUM(line);
+  else return AP_SUM(k) + k*(line-k) -AP_SUM(line-k);
+}
+
 void Solve(){
-  
-  
+  ll k,x; cin>> k>>x;
+  ll low = 1, high = 2*k-1;
+  ll ans = high;
+  while(low <= high){
+    ll mid = (low + high)>>1;
+    if(find_sum(mid, k) >= x){
+      ans = mid;
+      high = mid -1;
+    }else low = mid +1;
+  }
+  cout << ans;
 }
 int main()
 {

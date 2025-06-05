@@ -123,6 +123,40 @@
         ],
         "description": "to produce the snippet for Disjoint Set Union (DSU)"
     },
+    "range sum segment tree":{
+        "prefix" : "range sum segment tree",
+        "body": [
+            "struct segtree{",
+                "\tvector<int>tree;",
+                "\tint sz;",
+                "\tvoid init(int n){",
+                    "\t\tsz=1;",
+                    "\t\tsz<<= log2(n)+1;",
+                    "\t\ttree.assign(sz*2-1,0);",
+                "\t}",
+                "\tvoid set(int x,int lx,int rx,int i,int v){",
+                    "\t\tif(rx-lx==1){tree[x]+=v;return;}",
+                    "\t\tint m=(lx+rx)/2;",
+                    "\t\tif(i<m)set(x*2+1,lx,m,i,v);",
+                    "\t\telse set(x*2+2,m,rx,i,v);",
+                    "\t\ttree[x]=tree[x*2+1]+tree[x*2+2];",
+                "\t}",
+                "\tvoid set(int i,int v){",
+                    "\t\tset(0,0,sz,i,v);",
+                "\t}",
+                "\tint get(int x,int lx,int rx,int l,int r){",
+                    "\t\tif(r<=lx || rx<=l)return 0;",
+                    "\t\tif(l<=lx && r>=rx)return tree[x];",
+                    "\t\tint m=(lx+rx)/2;",
+                    "\t\treturn get(x*2+1,lx,m,l,r)+get(x*2+2,m,rx,l,r);",
+                "\t}",
+                "\tint get(int l,int r){",
+                    "\t\treturn get(0,0,sz,l,r);",
+                "\t}",
+            "};"
+        ]
+
+    },
 
     "power": 
     {

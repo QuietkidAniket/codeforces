@@ -6,22 +6,32 @@ mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 bool multi = true;
 static const int mod = 1e9 + 7;
 
-void Solve(){
-  int n; cin>> n;
-
-  int q; cin>> q;
-
-  for(int i = 0; i < q; i++){
-    string s; cin>> s;
-    if(s[0] == '<'){ // element d where?
-      int d; cin>> d;
-      
-    }else{  // what element at (x,y)?
-      int x, y; cin>> x>>y;
+int bin_search(const vector<int>& arr, int k){
+  int low = 0, high = k-1;
+  int ans = -1;
+  while(low <= high){
+    int mid = (low + high)>> 1;
+    if(arr[mid] >= (k-mid)){
+      high = mid -1;
+      ans = mid;
+    }else{
+      low = mid + 1;
     }
   }
+  return k - (ans);
+}
 
+void Solve(){
+  int n; cin>> n;
+  vector<int> arr(n);
+  for(int i = 0; i< n; i++)
+  {
+    cin >> arr[i];
+  }
 
+  for(int k =1;k <= n; k++){
+    cout << bin_search(arr, k) << " ";
+  }
 }
 int main()
 {

@@ -4,11 +4,38 @@ typedef long double ld;
 typedef long long ll;
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 bool multi = true;
-static const int mod = 1e9 + 7;
+static const int mod = 998244353;
+
+ll fact(ll n){
+  ll res = 1;;
+  for(int i= n; i > 1;i--){
+    res = (res%mod*i%mod);
+  }
+  return res;
+}
 
 void Solve(){
-  
-  
+  string s; cin>> s;
+  ll x, y;
+  int i = 0, j = 0;
+  int min_ops = 0;
+  ll res = 1;
+  int n = s.size();
+  int alternating = 0;
+  while(i < n){
+    j = i+1;
+    int cnt = 1;
+    while(j < n && s[j] == s[i]){
+      cnt++;
+      j++;
+    }
+    alternating++;
+    min_ops += cnt-1;
+    res = res%mod * cnt%mod;
+    i = j;
+  }
+  res *= fact(n - alternating);
+  cout << n - alternating << " " << res%mod;
 }
 int main()
 {

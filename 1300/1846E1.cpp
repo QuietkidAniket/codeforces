@@ -6,10 +6,30 @@ mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 bool multi = true;
 static const int mod = 1e9 + 7;
 
+
+static int dp[1<<20];
+
+static const int init = [](){
+  for(int k = 2; k < 1000; k++){
+    ll sum = 0;
+    ll prod = 1;
+    for(int x = 1; x <= 20; x++){
+      sum += prod;
+      if(sum >= 1e6)break;
+      if(x >=3)dp[sum] = 1;
+      prod *= k;
+    }
+  }
+  return 0;
+}();
+
+
 void Solve(){
-  
-  
+  ll n; cin>> n;
+  if(dp[n] ==1)cout << "YES";
+  else cout << "NO";
 }
+
 int main()
 {
   ios::sync_with_stdio(0);
