@@ -162,17 +162,15 @@
     {
     "prefix" : "power",
         "body" : [
-            "int power(int x, int y) {",
-                "int res = 1;",
-                "x = x % mod; ",
-                "while (y > 0) {  ",
-                    "if (y & 1) ",
-                     "   res = (res * x) % mod;  ",
-                    "y = y >> 1;",
-                    "x = (x * x) % mod;   ",
-                "}" ,
-                "return res; ",
-            "}"
+            "ll modPow(ll base, ll exp) {",
+                "\tll res = 1;",
+                "\twhile (exp > 0) {",
+                "\t    if (exp & 1) res = (res * base) % MOD;",
+                "\t    base = (base * base) % MOD;",
+                "\t    exp >>= 1;",
+                "\t}",
+                "\treturn res;",
+                "}"
             ],
             "description": "to produce snippet for power code compatible with mod"
     },
