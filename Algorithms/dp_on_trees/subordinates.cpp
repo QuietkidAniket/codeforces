@@ -3,31 +3,32 @@ using namespace std;
 typedef long double ld;
 typedef long long ll;
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
-bool multi = true;
+bool multi = false;
 static const int mod = 1e9 + 7;
 
-void Solve(){
-  ll n, k; cin>>n >>k;
-  string s; cin>> s;
-
-  if(k > n/2){
-    cout << "NO";
-    return;
+vector<int> dp;
+void find(int node, vector<vector<int>>& adjl){
+  for(int adjnode : adjl[node]){
+    find(adjnode, adjl);
+    dp[node] += dp[adjnode] +1;
   }
-  ll ones =0, zeros = 0;
-  for(ll i = 0; i < n; i++){
-    if(s[i] == '1')ones++;
-    else zeros++;
-  }
-  ll max_good_pairs_ones = (ones/2);
-  ll max_good_pairs_zeros = (zeros/2);
-  ll mx = max_good_pairs_ones+ max_good_pairs_zeros;
-  ll mn = n/2 - min(zeros, ones);
-  if(mn <= k && k <= mx && (mx-k)%2 == 0){
-    cout << "YES";
-  }else cout << "NO";
 }
 
+void Solve(){
+  int n; cin>> n;
+  vector<vector<int>> adjl(n+1);
+  dp.resize(n+1, 0);
+  for(int i = 2; i<=n; i++)
+  {
+    int u; cin>> u;
+    adjl[u].push_back(i);
+  }
+
+  find(1, adjl);
+  for(int i =1; i<= n; i++){
+    cout << dp[i] << " ";
+  }
+}
 int main()
 {
   ios::sync_with_stdio(0);
@@ -51,4 +52,4 @@ int main()
   cerr << "Time measured: " << elapsed.count() * 1e-9 << " seconds.\n"; 
   #endif
   return 0;
-}
+} 

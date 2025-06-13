@@ -7,27 +7,19 @@ bool multi = true;
 static const int mod = 1e9 + 7;
 
 void Solve(){
-  ll n, k; cin>>n >>k;
-  string s; cin>> s;
+  ll n, m; cin>>n >>m;
+  vector<vector<ll>> adjl(n+1);
+  for(int i = 0; i< m; i++)
+  {
+    ll u , v, w;
+    cin>>  u>> v>>w;
+    adjl[u].push_back({v,w});
+    adjl[v].push_back({u,w});
+  }
 
-  if(k > n/2){
-    cout << "NO";
-    return;
-  }
-  ll ones =0, zeros = 0;
-  for(ll i = 0; i < n; i++){
-    if(s[i] == '1')ones++;
-    else zeros++;
-  }
-  ll max_good_pairs_ones = (ones/2);
-  ll max_good_pairs_zeros = (zeros/2);
-  ll mx = max_good_pairs_ones+ max_good_pairs_zeros;
-  ll mn = n/2 - min(zeros, ones);
-  if(mn <= k && k <= mx && (mx-k)%2 == 0){
-    cout << "YES";
-  }else cout << "NO";
+
+  
 }
-
 int main()
 {
   ios::sync_with_stdio(0);

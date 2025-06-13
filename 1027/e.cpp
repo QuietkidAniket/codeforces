@@ -6,28 +6,35 @@ mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 bool multi = true;
 static const int mod = 1e9 + 7;
 
-void Solve(){
-  ll n, k; cin>>n >>k;
-  string s; cin>> s;
-
-  if(k > n/2){
-    cout << "NO";
-    return;
+void dfs(int node, vector<vector<int>> adjl, vector<ll>& a, vector<ll>& dp, int par, ll sign){
+  dp[node] = dp[par]  + sign*a[node];
+  for(const auto& adjnode :  adjl[node]){
+    if(adjnode != par){
+      dfs(adjnode, adjl, a, dp, node, -1*sign);
+    }
   }
-  ll ones =0, zeros = 0;
-  for(ll i = 0; i < n; i++){
-    if(s[i] == '1')ones++;
-    else zeros++;
-  }
-  ll max_good_pairs_ones = (ones/2);
-  ll max_good_pairs_zeros = (zeros/2);
-  ll mx = max_good_pairs_ones+ max_good_pairs_zeros;
-  ll mn = n/2 - min(zeros, ones);
-  if(mn <= k && k <= mx && (mx-k)%2 == 0){
-    cout << "YES";
-  }else cout << "NO";
 }
-
+void Solve(){
+  int n; cin>> n;
+  vector<ll> a(n+1);
+  for(int i = 1; i <= n ; i++){
+    cin>> a[i];
+  }
+  vector<vector<int>> adjl(n+1);
+  for(int i = 0; i < n-1; i++){
+    int u, v;
+    cin>> u>> v;
+    adjl[u].push_back(v);
+    adjl[v].push_back(u);
+  }
+  vector<ll> dp;
+  dp.assign(n+1,0ll); // stores alternating sum from node 1 till ith node
+  for(int i = 
+  dfs(1, adjl, a, dp, 0, 1ll);
+  for(int i = 1; i <= n; i++){
+    cout<< dp[i] << " ";
+  }
+}
 int main()
 {
   ios::sync_with_stdio(0);
