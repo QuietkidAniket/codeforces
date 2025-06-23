@@ -1,6 +1,6 @@
 /**
- *    author:  Cheesehead
- *    created: 2025-06-14 02:26:31
+ *    author:  Anicetus_7
+ *    created: 2025-06-17 14:10:47
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -11,8 +11,27 @@ typedef long double ld;
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
 void Solve(){
+  int n; cin>> n;
 
-  
+  // we need to find n = a + b, where lcm(a,b) is minimized
+  // => a*(n-a) /gcd(a,n-a) is min 
+  // answer: k , n-k where k is the largest (proper) factor of n
+
+  int p =0;
+  for(int r = 2; r<= 100000; r++){
+    if(n%r == 0){
+      p = r;
+      break;
+    }
+  }
+  int a,b;
+  if(p == 0){
+    a =1, b =n-1;
+  }else{
+    a = n/p;
+    b = n - a;
+  }
+  cout << a << " " <<b <<endl;
 }
 int32_t main()
 {
@@ -28,7 +47,6 @@ int32_t main()
   while(t--){
   Solve();
   }
-  
   #ifndef ONLINE_JUDGE
   auto end = std::chrono::high_resolution_clock::now();
   auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);

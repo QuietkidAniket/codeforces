@@ -1,6 +1,6 @@
 /**
- *    author:  Cheesehead
- *    created: 2025-06-14 02:26:31
+ *    author:  Anicetus_7
+ *    created: 2025-06-17 20:22:18
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -11,8 +11,26 @@ typedef long double ld;
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
 void Solve(){
-
-  
+  int n; cin>>n;
+  string s; cin>> s;
+  vector<int> cnt(26,0);
+  for(int i = 0; i < n-1; i++){
+    cnt[s[i]-'a']++;
+    if(cnt[s[i]-'a'] > 1){
+      cout << "YES"<<endl;
+      return;
+    }
+  }
+  cnt.assign(26,0);
+  for(int i = 1; i < n; i++){
+    cnt[s[i]-'a']++;
+    if(cnt[s[i]-'a'] > 1){
+      cout << "YES"<<endl;
+      return;
+    }
+  }
+  if(s[0] == s.back())cnt[s[0]-'a']--;
+  cout << "NO"<<endl;
 }
 int32_t main()
 {
@@ -28,7 +46,6 @@ int32_t main()
   while(t--){
   Solve();
   }
-  
   #ifndef ONLINE_JUDGE
   auto end = std::chrono::high_resolution_clock::now();
   auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
