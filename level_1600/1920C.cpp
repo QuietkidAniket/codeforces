@@ -1,6 +1,6 @@
 /**
  *    author: Anicetus_7
- *    created: 2025-06-23 12:26:19
+ *    created: 2025-06-30 20:25:32
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -9,38 +9,28 @@ using namespace std;
 #define MOD (int)(1e9 + 7)
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
-
 void Solve(){
-  int n,q; cin>> n>> q;
-  vector<int> p(q); // machine involved in  ith query
-  vector<int> op(q); // operation involved in ith query
-  vector<string> s(q); // string involved in operation of type 2 in ith query;
+  int n; cin>> n;
+  vector<int> arr(n); for(auto& x : arr)cin>> x;
 
-  for(int i = 0; i < q; i++){
-    cin>> op[i] >> p[i];
-    if(op[i] ==2){
-      cin>> s[i];
-    }
-  }
-  
-  function<string(int, int)> f = [&](int t, int i) ->string{
-    if (t < 0) return "";
-
-    if (op[t] == 1) {
-        if(i == p[t])return f(t - 1, 0);
-        else return f(t-1, i);
-    }
-    else if (op[t] == 2) {
-        if (i == p[t])return f(t-1, i) + s[t];
-        else return f(t - 1, i);
-    }
-    else { // op[t] == 3
-        if (i == 0) return f(t - 1, p[t]);
-        else return f(t - 1, i);
-    }
+  auto check = [&](int k){
+      // check if corresponding subsequences' gcds are not equal to 1
+      int res = abs(arr[k] - arr[0]);
+      for(int i =0; i < n - k; i++){
+        res = gcd(abs(arr[i + k] - arr[i]), res);
+        if(res ==1){
+          return false;
+        }
+      }
+      return true;
   };
 
-  cout << f(q-1, 0) << endl;
+  int ans = 0;
+  for(int k = 1; k <=n; k++){
+    if(n%k)continue;
+    ans += check(k);
+  }
+  cout << ans << '\n';
   
 }
 

@@ -1,6 +1,6 @@
 /**
  *    author: Anicetus_7
- *    created: 2025-06-23 12:26:19
+ *    created: 2025-07-03 13:05:00
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -9,39 +9,30 @@ using namespace std;
 #define MOD (int)(1e9 + 7)
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
-
 void Solve(){
-  int n,q; cin>> n>> q;
-  vector<int> p(q); // machine involved in  ith query
-  vector<int> op(q); // operation involved in ith query
-  vector<string> s(q); // string involved in operation of type 2 in ith query;
-
-  for(int i = 0; i < q; i++){
-    cin>> op[i] >> p[i];
-    if(op[i] ==2){
-      cin>> s[i];
-    }
+  string s; cin>> s;
+  int pos; cin>>pos; pos--;
+  
+  int n = s.size();
+  int x = 0, start_ind = 0;
+  while(start_ind + n-x <= pos){  
+    start_ind += (n-x);
+    x++;
+  } 
+  
+  int cnt = 0; 
+  string res;
+  for(int i = 0; i< n; i++){
+    while(!res.empty() && res.back() > s[i] && cnt < x){
+      res.pop_back();
+      cnt++;
+      if(cnt == x){
+        break;
+      }
+    } 
+    res.push_back(s[i]);
   }
-  
-  function<string(int, int)> f = [&](int t, int i) ->string{
-    if (t < 0) return "";
-
-    if (op[t] == 1) {
-        if(i == p[t])return f(t - 1, 0);
-        else return f(t-1, i);
-    }
-    else if (op[t] == 2) {
-        if (i == p[t])return f(t-1, i) + s[t];
-        else return f(t - 1, i);
-    }
-    else { // op[t] == 3
-        if (i == 0) return f(t - 1, p[t]);
-        else return f(t - 1, i);
-    }
-  };
-
-  cout << f(q-1, 0) << endl;
-  
+  cout << res[pos - start_ind];
 }
 
 //|------------------------------------------[MAIN]------------------------------------------|
