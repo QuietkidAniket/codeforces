@@ -70,7 +70,13 @@
         "typeinfo": "cpp",
         "unordered_set": "cpp",
         "variant": "cpp",
-        "__config": "cpp"
+        "__config": "cpp",
+        "chrono": "cpp",
+        "rope": "cpp",
+        "slist": "cpp",
+        "flat_map": "cpp",
+        "flat_set": "cpp",
+        "numeric": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
