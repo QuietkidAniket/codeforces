@@ -1,6 +1,6 @@
 /**
  *    author: Anicetus_7
- *    created: 2025-09-13 19:33:36
+ *    created: 2025-09-13 21:02:50
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -11,28 +11,53 @@ using namespace std;
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
 void Solve(){
-  int n; cin>> n;
-  int arr[n];
-  // pr[i] stores the largest index j where arr[j] != arr[i]
-  vector<int> pr(n);
+  int n; cin>>n;
+
+  vector<vector<int>> a(n);
+
+  int mx = 0;
   for(int i = 0; i< n; i++)
   {
-    cin >> arr[i];
-    if(i > 0 && arr[i] == arr[i-1]){
-      pr[i] = pr[i-1];
-    }else pr[i]= i-1;
+   int k ; cin>>k;
+   vector<int> t(k);
+   for(auto& x : t)cin>> x;
+   mx = max(mx, (int)t.size());
+   a[i] = t;
   }
-  int q; cin>> q;
-  for(int query = 0; query < q; query++){
-    int l, r;
-    cin >> l >> r;
-    l--, r--;
-    if(l > pr[r]){
-      cout << -1 << " " << -1 << '\n';
-    }else{
-      cout << pr[r] +1 << " " << r+1 <<endl;
+
+  sort(a.begin(), a.end());
+
+  vector<int> ans(mx);
+  for(int i = 0 ; i <a[0].size(); i++){
+    ans[i] = a[0][i];
+  }
+  
+  int z=a[0].size();
+
+  while(z< mx){
+    sort(a.begin(), a.end(), [z](const vector<int>& v1, const vector<int>& v2) {
+      if(v1.size() <= z)return false;
+      if(v2.size() <= z)return true;
+      int n1 = v1.size(), n2 = v2.size();
+      int i = z;
+      while(i < n1 && i < n2) {
+        if(v1[i] != v2[i]) return v1[i] < v2[i];
+        i++;
+      }
+      return n1 < n2;
+    });
+    
+    for(int i = z; i <a[0].size(); i++){
+      ans[i] = a[0][i];
     }
+    z= a[0].size();
   }
+  
+  
+  for(auto x: ans){
+    cout << x << " ";
+  }
+  cout <<endl;
 }
 
 //|------------------------------------------[MAIN]------------------------------------------|

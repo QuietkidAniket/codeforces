@@ -1,38 +1,38 @@
 /**
  *    author: Anicetus_7
- *    created: 2025-09-13 19:33:36
+ *    created: 2025-09-15 20:36:56
 **/
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
 #define INF (int)1e18
-#define MOD (int)(1e9 + 7)
+#define MOD (int)(998244353)
 #define MAX (int)(20005)
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
 void Solve(){
-  int n; cin>> n;
-  int arr[n];
-  // pr[i] stores the largest index j where arr[j] != arr[i]
-  vector<int> pr(n);
-  for(int i = 0; i< n; i++)
-  {
-    cin >> arr[i];
-    if(i > 0 && arr[i] == arr[i-1]){
-      pr[i] = pr[i-1];
-    }else pr[i]= i-1;
-  }
-  int q; cin>> q;
-  for(int query = 0; query < q; query++){
-    int l, r;
-    cin >> l >> r;
-    l--, r--;
-    if(l > pr[r]){
-      cout << -1 << " " << -1 << '\n';
-    }else{
-      cout << pr[r] +1 << " " << r+1 <<endl;
+  int n; cin>>n;
+  vector<int> a(n), b(n);
+
+  for(auto& x : a)cin>> x;
+  for(auto& x : b)cin>> x;
+
+  int dp[n][2] = {0}; // 0 -> not swap, 1 -> swap
+  dp[0][0] = 1;
+  dp[0][1] = 1;
+
+  // Just simple no. of ways = number of subsets of swaps
+  for(int i =1 ; i <n; i++){
+    if(a[i-1] <= a[i] && b[i-1] <= b[i]){
+      dp[i][0] = dp[i-1][0];
+      dp[i][1] = dp[i-1][1];
+    }
+    if(a[i-1] <= b[i] && b[i-1] <= a[i]){
+      dp[i][0] = (dp[i][0]+ dp[i-1][1])%MOD;
+      dp[i][1] = (dp[i][1]+ dp[i-1][1])%MOD;
     }
   }
+  cout << (dp[n-1][0] + dp[n-1][1])%MOD << endl;
 }
 
 //|------------------------------------------[MAIN]------------------------------------------|

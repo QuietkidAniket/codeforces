@@ -1,6 +1,6 @@
 /**
  *    author: Anicetus_7
- *    created: 2025-09-13 19:33:36
+ *    created: 2025-09-04 20:04:01
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -11,28 +11,21 @@ using namespace std;
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
 void Solve(){
-  int n; cin>> n;
-  int arr[n];
-  // pr[i] stores the largest index j where arr[j] != arr[i]
-  vector<int> pr(n);
-  for(int i = 0; i< n; i++)
-  {
-    cin >> arr[i];
-    if(i > 0 && arr[i] == arr[i-1]){
-      pr[i] = pr[i-1];
-    }else pr[i]= i-1;
-  }
-  int q; cin>> q;
-  for(int query = 0; query < q; query++){
-    int l, r;
-    cin >> l >> r;
-    l--, r--;
-    if(l > pr[r]){
-      cout << -1 << " " << -1 << '\n';
-    }else{
-      cout << pr[r] +1 << " " << r+1 <<endl;
+  int n,target; cin>>n>> target;
+
+  vector<int> h(n), s(n);
+
+  for(auto& x : h)cin>> x;
+  for(auto& x : s)cin>> x;
+
+  vector<int> dp(target+1, 0);
+  
+  for(int i = 0; i < n; i++){
+    for(int t = target; t >= h[i]; t--){
+      dp[t] = max(s[i] + dp[t - h[i]], dp[t]);
     }
   }
+  cout << dp[target];
 }
 
 //|------------------------------------------[MAIN]------------------------------------------|
@@ -40,7 +33,7 @@ int32_t main(){
   auto begin = std::chrono::high_resolution_clock::now();
   ios::sync_with_stdio(0); cin.tie(0);
   int t = 1;
-  cin>> t;
+  // cin>> t;
   for(int i = 1; i <= t; i++) 
     {
         //cout << "Case #" << i << ": \n";

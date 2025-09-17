@@ -1,38 +1,44 @@
 /**
  *    author: Anicetus_7
- *    created: 2025-09-13 19:33:36
+ *    created: 2025-09-06 21:48:27
 **/
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
-#define INF (int)1e18
+#define INF (int)1e9
 #define MOD (int)(1e9 + 7)
 #define MAX (int)(20005)
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
+vector<int> fib();
+void pre(){
+
+}
+
 void Solve(){
-  int n; cin>> n;
-  int arr[n];
-  // pr[i] stores the largest index j where arr[j] != arr[i]
-  vector<int> pr(n);
-  for(int i = 0; i< n; i++)
-  {
-    cin >> arr[i];
-    if(i > 0 && arr[i] == arr[i-1]){
-      pr[i] = pr[i-1];
-    }else pr[i]= i-1;
+  int a, b; cin>>a>>b;
+
+  vector<vector<int>> dp(a+1, vector<int>(b+1,INF));
+
+
+  for(int m =1; m<=min(a,b); m++){
+    dp[m][m] =0ll;
   }
-  int q; cin>> q;
-  for(int query = 0; query < q; query++){
-    int l, r;
-    cin >> l >> r;
-    l--, r--;
-    if(l > pr[r]){
-      cout << -1 << " " << -1 << '\n';
-    }else{
-      cout << pr[r] +1 << " " << r+1 <<endl;
+  for(int m =1; m<=a; m++){
+    for(int n = 1; n<= b; n++)
+    {
+      if(m==n)continue;
+      for(int i = 1; i <n; i++){
+        dp[m][n] = min(dp[m][n],1+dp[m][n-i] + dp[m][i]);
+      }
+      for(int i = 1; i<m; i++){
+        dp[m][n] = min(dp[m][n],1+dp[m-i][n] + dp[i][n]);
+      }
     }
   }
+
+  cout << dp[a][b] << endl;
+  
 }
 
 //|------------------------------------------[MAIN]------------------------------------------|
@@ -40,7 +46,7 @@ int32_t main(){
   auto begin = std::chrono::high_resolution_clock::now();
   ios::sync_with_stdio(0); cin.tie(0);
   int t = 1;
-  cin>> t;
+  // cin>> t;
   for(int i = 1; i <= t; i++) 
     {
         //cout << "Case #" << i << ": \n";

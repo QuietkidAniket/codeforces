@@ -1,6 +1,6 @@
 /**
  *    author: Anicetus_7
- *    created: 2025-09-13 19:33:36
+ *    created: 2025-09-15 20:29:20
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -11,28 +11,32 @@ using namespace std;
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
 void Solve(){
-  int n; cin>> n;
-  int arr[n];
-  // pr[i] stores the largest index j where arr[j] != arr[i]
-  vector<int> pr(n);
-  for(int i = 0; i< n; i++)
-  {
-    cin >> arr[i];
-    if(i > 0 && arr[i] == arr[i-1]){
-      pr[i] = pr[i-1];
-    }else pr[i]= i-1;
+  int n; cin>>n;
+  vector<int> a(n);
+  for(auto& x : a)cin>> x;
+
+  unordered_set<int> st(a.begin(), a.end());
+  vector<int> missing;
+
+  for(int i =1 ;i <= n; i++){
+    if(st.find(i) == st.end())missing.push_back(i);
   }
-  int q; cin>> q;
-  for(int query = 0; query < q; query++){
-    int l, r;
-    cin >> l >> r;
-    l--, r--;
-    if(l > pr[r]){
-      cout << -1 << " " << -1 << '\n';
-    }else{
-      cout << pr[r] +1 << " " << r+1 <<endl;
+
+  for(int i =0 ; i < n; i++){
+    if(a[i] == 0){
+      a[i] = missing.back();
+      missing.pop_back();
     }
   }
+  int l = n, r =0;
+  for(int i =0 ; i < n; i++){
+    if(a[i] != i+1){
+      l = min(i+1,l);
+      r = max(i+1,r);
+    }
+  }
+  cout << max(0ll,r-l+1)<< endl;
+  
 }
 
 //|------------------------------------------[MAIN]------------------------------------------|

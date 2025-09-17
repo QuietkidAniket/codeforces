@@ -1,6 +1,6 @@
 /**
  *    author: Anicetus_7
- *    created: 2025-09-13 19:33:36
+ *    created: 2025-09-08 15:58:48
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -11,28 +11,52 @@ using namespace std;
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
 void Solve(){
-  int n; cin>> n;
-  int arr[n];
-  // pr[i] stores the largest index j where arr[j] != arr[i]
-  vector<int> pr(n);
+  int n; cin>>n;
+
+  vector<int> a(n);
+  vector<int> b(n);
+
+
+  vector<int> z(n);
+  for(auto& x : a)cin>> x;
+  for(auto& x : b)cin>> x;
+
+  int pmax[n+1] = {0};
+  int res[n+1] = {0};
+  // vector<int> pmax(n+1,0);
+  // vector<int> res(n+1,0);
+
+  for(int i = 0; i <n; i++){
+    pmax[i+1] = max(pmax[i], a[i]);
+  }
+
   for(int i = 0; i< n; i++)
   {
-    cin >> arr[i];
-    if(i > 0 && arr[i] == arr[i-1]){
-      pr[i] = pr[i-1];
-    }else pr[i]= i-1;
-  }
-  int q; cin>> q;
-  for(int query = 0; query < q; query++){
-    int l, r;
-    cin >> l >> r;
-    l--, r--;
-    if(l > pr[r]){
-      cout << -1 << " " << -1 << '\n';
-    }else{
-      cout << pr[r] +1 << " " << r+1 <<endl;
+    res[i+1] = res[i];
+    if(a[i] == b[i]){
+      res[i+1]++;
+    }else if(a[i] < pmax[i+1] && b[i] <= pmax[i+1]){
+      res[i+1]++;
     }
   }
+
+  for(int i = 0; i<= n; i++)
+  {
+   cout << res[i] << " " ; 
+  }
+
+  int ans= 0;
+  for(int l  =0 ; l < n; l++){
+    int sum = 0;
+    for(int r = l; r <n; r++){
+      sum += res[r+1] - res[l];
+    }
+    ans += sum;
+  }
+
+
+  cout << ans << endl;
+  
 }
 
 //|------------------------------------------[MAIN]------------------------------------------|

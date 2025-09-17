@@ -1,6 +1,6 @@
 /**
  *    author: Anicetus_7
- *    created: 2025-09-07 19:18:59
+ *    created: 2025-09-08 02:16:23
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -10,46 +10,29 @@ using namespace std;
 #define MAX (int)(20005)
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
-int grid[1000][1000];
-int n;
-inline bool check(int x, int y){
-    return x >=0 && x <n && x >=0 && y < n;
-}
-
-int dir[8][2] = {
-    {2,-1}, {2,1},
-    {-2,-1}, {-2,1},
-    {-1,2}, {1,2},
-    {-1,-2}, {1,-2},
-};
-
-void find(int x, int y, int steps, vector<vector<int32_t>>& vis){
-    vis[x][y] = 1;
-    grid[x][y] = steps;
-    for(int i =0 ; i < 8; i++){
-        int nx = dir[0][i], ny = dir[1][i] + y;
-        if(!check(nx, ny))continue;
-        if(vis[nx][ny] == 1)continue;
-        find(nx, ny, steps+1, vis);
-    }
-}
-
+bitset<100001> dp;
 
 void Solve(){
-    cin>>n;
-    grid[0][0] = 0;
-    vector<vector<int32_t>> vis(n, vector<int32_t>(n, 0));
-    find(0,0, 0, vis);
-    
+  int n; cin>>n;
+  vector<int> a(n);
+  for(auto& x : a)cin>> x;
+  dp.reset();
+  sort(a.begin(), a.end());
+  int sum = accumulate(a.begin(), a.end(), 0ll);
 
-    for(int i = 0; i< n; i++)
-    {
-    for(int j = 0; j< n; j++)
-    {
-        cout << grid[i][j] << " ";
-    }   
-    cout << endl;
+  dp[0] = 1;
+  for(int coin : a){
+    for(int t = sum; t >= coin; t--){
+      if(dp[t-coin])dp[t] = 1;
     }
+  }
+
+  cout << dp.count() -1<< endl;
+  for(int i = 1; i <=sum ;i++){
+    if(dp[i])cout << i << " ";
+  }
+  cout << endl;
+  
 }
 
 //|------------------------------------------[MAIN]------------------------------------------|
@@ -57,7 +40,7 @@ int32_t main(){
   auto begin = std::chrono::high_resolution_clock::now();
   ios::sync_with_stdio(0); cin.tie(0);
   int t = 1;
-//   cin>> t;
+  // cin>> t;
   for(int i = 1; i <= t; i++) 
     {
         //cout << "Case #" << i << ": \n";

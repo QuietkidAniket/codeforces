@@ -76,7 +76,14 @@
         "slist": "cpp",
         "flat_map": "cpp",
         "flat_set": "cpp",
-        "numeric": "cpp"
+        "numeric": "cpp",
+        "span": "cpp",
+        "stacktrace": "cpp",
+        "random": "cpp",
+        "ranges": "cpp",
+        "format": "cpp",
+        "generator": "cpp",
+        "text_encoding": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

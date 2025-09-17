@@ -1,6 +1,6 @@
 /**
  *    author: Anicetus_7
- *    created: 2025-09-07 19:18:59
+ *    created: 2025-09-17 14:46:08
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -10,46 +10,44 @@ using namespace std;
 #define MAX (int)(20005)
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
-int grid[1000][1000];
-int n;
-inline bool check(int x, int y){
-    return x >=0 && x <n && x >=0 && y < n;
-}
+int find(vector<int>& a){
+  stack<pair<int,int>> stk;
+  stk.push({INF, 0});
 
-int dir[8][2] = {
-    {2,-1}, {2,1},
-    {-2,-1}, {-2,1},
-    {-1,2}, {1,2},
-    {-1,-2}, {1,-2},
-};
-
-void find(int x, int y, int steps, vector<vector<int32_t>>& vis){
-    vis[x][y] = 1;
-    grid[x][y] = steps;
-    for(int i =0 ; i < 8; i++){
-        int nx = dir[0][i], ny = dir[1][i] + y;
-        if(!check(nx, ny))continue;
-        if(vis[nx][ny] == 1)continue;
-        find(nx, ny, steps+1, vis);
+  for(int x: a){
+    int cnt =1;
+    while(stk.size() > 1 && stk.top().first < x){
+      cnt += stk.top().second;
+      stk.pop();
     }
+    if(stk.size() == 1){
+      auto t = stk.top();
+      stk.pop();
+      stk.push({INF, max(t.second, cnt)});
+      stk.push({x, 1ll});
+    }else{
+      stk.push({x, cnt});
+    }
+  }
+  int cnt =0;
+  while(stk.size() > 1){
+    cnt += stk.top().second;
+    stk.pop();
+  }
+  int ans = max(stk.top().second, cnt);
+  return ans;
 }
 
 
 void Solve(){
-    cin>>n;
-    grid[0][0] = 0;
-    vector<vector<int32_t>> vis(n, vector<int32_t>(n, 0));
-    find(0,0, 0, vis);
-    
+  int n; cin>>n;
+  vector<int> a(n);
+  for(auto& x : a)cin>> x;
 
-    for(int i = 0; i< n; i++)
-    {
-    for(int j = 0; j< n; j++)
-    {
-        cout << grid[i][j] << " ";
-    }   
-    cout << endl;
-    }
+  int ans1  = find(a);
+  reverse(a.begin(), a.end());
+  int ans2  = find(a);
+  cout << max(ans1, ans2) << endl;
 }
 
 //|------------------------------------------[MAIN]------------------------------------------|
@@ -57,7 +55,7 @@ int32_t main(){
   auto begin = std::chrono::high_resolution_clock::now();
   ios::sync_with_stdio(0); cin.tie(0);
   int t = 1;
-//   cin>> t;
+  // cin>> t;
   for(int i = 1; i <= t; i++) 
     {
         //cout << "Case #" << i << ": \n";

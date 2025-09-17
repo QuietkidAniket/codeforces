@@ -1,6 +1,6 @@
 /**
  *    author: Anicetus_7
- *    created: 2025-09-13 19:33:36
+ *    created: 2025-09-08 22:21:08
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -11,28 +11,18 @@ using namespace std;
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
 void Solve(){
-  int n; cin>> n;
-  int arr[n];
-  // pr[i] stores the largest index j where arr[j] != arr[i]
-  vector<int> pr(n);
-  for(int i = 0; i< n; i++)
-  {
-    cin >> arr[i];
-    if(i > 0 && arr[i] == arr[i-1]){
-      pr[i] = pr[i-1];
-    }else pr[i]= i-1;
+  int n; cin>>n;
+  int k; cin>>k;
+
+  vector<int> par(n+1);
+
+  for(int i =2 ; i <= n; i++){
+    cin>>par[i];
   }
-  int q; cin>> q;
-  for(int query = 0; query < q; query++){
-    int l, r;
-    cin >> l >> r;
-    l--, r--;
-    if(l > pr[r]){
-      cout << -1 << " " << -1 << '\n';
-    }else{
-      cout << pr[r] +1 << " " << r+1 <<endl;
-    }
-  }
+
+  
+
+  
 }
 
 //|------------------------------------------[MAIN]------------------------------------------|

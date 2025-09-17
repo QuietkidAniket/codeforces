@@ -1,6 +1,6 @@
 /**
  *    author: Anicetus_7
- *    created: 2025-09-13 19:33:36
+ *    created: 2025-09-17 12:05:36
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -9,30 +9,42 @@ using namespace std;
 #define MOD (int)(1e9 + 7)
 #define MAX (int)(20005)
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
-
+ 
+/** @brief Patience Sorting by C.L. Mallows (1973) and Michael Fredman (1975) */
 void Solve(){
-  int n; cin>> n;
-  int arr[n];
-  // pr[i] stores the largest index j where arr[j] != arr[i]
-  vector<int> pr(n);
-  for(int i = 0; i< n; i++)
-  {
-    cin >> arr[i];
-    if(i > 0 && arr[i] == arr[i-1]){
-      pr[i] = pr[i-1];
-    }else pr[i]= i-1;
+  int n; cin>>n;
+  vector<int> a(n);
+
+  for(auto& x : a)cin>> x;
+
+  vector<int> lis;
+
+  for(int x :  a){
+    auto it = lower_bound(lis.begin(), lis.end(), x);
+    if(it == lis.end())lis.push_back(x);
+    else *it = x;
   }
-  int q; cin>> q;
-  for(int query = 0; query < q; query++){
-    int l, r;
-    cin >> l >> r;
-    l--, r--;
-    if(l > pr[r]){
-      cout << -1 << " " << -1 << '\n';
-    }else{
-      cout << pr[r] +1 << " " << r+1 <<endl;
+  cout << lis.size() << endl;
+}
+ 
+/** @brief Standard O(n^2) approach using Tabulation (Bottom up ) Dynamic Programming */
+void DP(){
+  int n; cin>>n;
+  vector<int> a(n);
+  
+  for(auto& x : a)cin>> x;
+ 
+  int dp[n+1] = {0};  
+  for(int i =1 ;i  <= n; i++){ 
+    dp[i] = max(dp[i], 1ll);
+    for(int j =i+1; j <=n; j++){
+ 
+      if(a[i-1] < a[j-1]){  
+        dp[j] = max(dp[j], 1 + dp[i]);
+      }
     }
   }
+  cout << *max_element(dp, dp + n+1) << endl;
 }
 
 //|------------------------------------------[MAIN]------------------------------------------|
@@ -40,7 +52,7 @@ int32_t main(){
   auto begin = std::chrono::high_resolution_clock::now();
   ios::sync_with_stdio(0); cin.tie(0);
   int t = 1;
-  cin>> t;
+  // cin>> t;
   for(int i = 1; i <= t; i++) 
     {
         //cout << "Case #" << i << ": \n";
