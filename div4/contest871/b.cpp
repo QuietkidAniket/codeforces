@@ -1,6 +1,6 @@
 /**
  *    author: Anicetus_7
- *    created: 2025-09-08 02:39:00
+ *    created: 2025-09-20 22:36:10
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -12,32 +12,23 @@ mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
 void Solve(){
   int n; cin>>n;
+
   vector<int> a(n);
+
   for(auto& x : a)cin>> x;
-  int dp[n][n] = {0}; //dp[l][r] = stores score1 - score2 for the segment l and r
 
-  // player chooses exactly one element 
-  for(int i = 0; i < n; i++){
-    dp[i][i] = a[i];
-  }
-
-  for(int len = 1; len < n; len++){
-    for(int l = 0; l < n-len; l++){
-      int r = l + len;
-      /**
-       * if player 1 choose a[l], player 2 chooses the optimal score from [l+1,r]
-       * if player 1 choose a[r], player 2 chooses the optimal score from [l,r-1]
-       */
-      dp[l][r] = max(a[l] - dp[l+1][r], a[r]- dp[l][r-1]);
+  int prev= n;
+  int mx = 0;
+  for(int  i=0; i <n; i++){
+    if(i > 0 && a[i] == 0 && a[i-1] == 0){
+      mx = max(mx, i-prev+1);
+    }else if(a[i] == 0){
+      prev = i;
+      mx = max(mx, i-prev+1);
     }
   }
-  int total = accumulate(a.begin(), a.end(), 0ll);
-  /**
-   * sum = score1 + score2
-   * => sum + (score1- score2) = 2*score1 
-   * => (sum + dp[0][n-1])/2 = score1 for the segment [0,n-1]
-   */
-  cout << (total + dp[0][n-1])/2 << endl;
+  cout << mx << endl;
+  
 }
 
 //|------------------------------------------[MAIN]------------------------------------------|
@@ -45,7 +36,7 @@ int32_t main(){
   auto begin = std::chrono::high_resolution_clock::now();
   ios::sync_with_stdio(0); cin.tie(0);
   int t = 1;
-  // cin>> t;
+  cin>> t;
   for(int i = 1; i <= t; i++) 
     {
         //cout << "Case #" << i << ": \n";
