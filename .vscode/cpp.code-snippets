@@ -531,7 +531,7 @@
         "prefix": "combinations",
         "body": [
             "const int MAXN = 2e5 + 5;",
-            "int fact[MAXN+1], invfact[MAXN+1];",
+            "static int fact[MAXN+1], invfact[MAXN+1];",
             "int modPow(int base, int exp) {",
             "  int res = 1;",
             "  while (exp > 0) {",
@@ -545,6 +545,7 @@
             "int modinv(int a) {",
             "    return modPow(a, MOD - 2);",
             "}",
+            "static bool flag = false;",
             "void precompute_combinations(){",
             "    fact[0] = invfact[0] = 1;",
             "    for(int i = 1; i <= MAXN; i++) {",
@@ -557,6 +558,7 @@
             "    }",
             "}",
             "int C(int n, int r) {",
+            "    if(!flag){precompute_combinations();flag = true;}",
             "    if(r < 0 || r > n) return 0;",
             "    return fact[n] * invfact[r] % MOD * invfact[n - r] % MOD;",
             "}"

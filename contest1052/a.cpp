@@ -1,6 +1,7 @@
+// solved in 10 minutes
 /**
  *    author: Anicetus_7
- *    created: 2025-09-19 15:36:41
+ *    created: 2025-09-21 20:14:52
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -10,31 +11,31 @@ using namespace std;
 #define MAX (int)(20005)
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
-void Solve() {
-    int n; cin >> n;
-    int k; cin >> k;
-    int x, z, b, c; cin >> x >> z >> b >> c;
+void Solve(){
+  int n; cin>>n;
+  vector<int> a(n);
+  for(auto& x : a)cin>> x;
+  int freq[n+1] = {0};
+  set<int> st;
 
-    deque<pair<int,int>> dq; // {index, value}
-    int res = 0;
-
-    int cur = x;
-    for (int i = 0; i < n; i++) {
-        // push current value
-        while (!dq.empty() && dq.back().second >= cur) dq.pop_back();
-        dq.emplace_back(i, cur);
-
-        // remove out-of-window
-        if (dq.front().first <= i - k) dq.pop_front();
-
-        // use min
-        if (i >= k - 1) res ^= dq.front().second;
-
-        // next value
-        cur = (cur * z + b) % c;
-    }
-
-    cout << res << "\n";
+  for(int x : a){
+    freq[x]++;
+    st.insert(x);
+  }
+  int mx = 0;
+  for(int i =1 ; i <= n; i++){
+    mx = max(freq[i], mx);
+  }
+  
+  int ans = 0;
+  for(int i =1; i<=mx;i++){
+    int res=0;
+    for(int x: st){
+      if(freq[x] >= i)res += i;
+    }  
+    ans = max(ans, res);
+  }
+  cout << ans<< endl;
 }
 
 //|------------------------------------------[MAIN]------------------------------------------|
@@ -42,7 +43,7 @@ int32_t main(){
   auto begin = std::chrono::high_resolution_clock::now();
   ios::sync_with_stdio(0); cin.tie(0);
   int t = 1;
-  // cin>> t;
+  cin>> t;
   for(int i = 1; i <= t; i++) 
     {
         //cout << "Case #" << i << ": \n";

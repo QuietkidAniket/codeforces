@@ -1,6 +1,6 @@
 /**
  *    author: Anicetus_7
- *    created: 2025-09-19 15:36:41
+ *    created: 2025-09-23 20:46:20
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -10,39 +10,21 @@ using namespace std;
 #define MAX (int)(20005)
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
-void Solve() {
-    int n; cin >> n;
-    int k; cin >> k;
-    int x, z, b, c; cin >> x >> z >> b >> c;
-
-    deque<pair<int,int>> dq; // {index, value}
-    int res = 0;
-
-    int cur = x;
-    for (int i = 0; i < n; i++) {
-        // push current value
-        while (!dq.empty() && dq.back().second >= cur) dq.pop_back();
-        dq.emplace_back(i, cur);
-
-        // remove out-of-window
-        if (dq.front().first <= i - k) dq.pop_front();
-
-        // use min
-        if (i >= k - 1) res ^= dq.front().second;
-
-        // next value
-        cur = (cur * z + b) % c;
+class Solution {
+public:
+    int minCost(int n, vector<int>& cuts) {
+            
     }
+};
 
-    cout << res << "\n";
-}
+
 
 //|------------------------------------------[MAIN]------------------------------------------|
 int32_t main(){
   auto begin = std::chrono::high_resolution_clock::now();
   ios::sync_with_stdio(0); cin.tie(0);
   int t = 1;
-  // cin>> t;
+  cin>> t;
   for(int i = 1; i <= t; i++) 
     {
         //cout << "Case #" << i << ": \n";

@@ -1,6 +1,6 @@
 /**
  *    author: Anicetus_7
- *    created: 2025-09-19 15:36:41
+ *    created: 2025-09-24 14:36:13
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -9,32 +9,33 @@ using namespace std;
 #define MOD (int)(1e9 + 7)
 #define MAX (int)(20005)
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
+#define yes cout<<"YES\n";
+#define no cout<<"NO\n";
 
-void Solve() {
-    int n; cin >> n;
-    int k; cin >> k;
-    int x, z, b, c; cin >> x >> z >> b >> c;
+void Solve(){
+  int n; cin>>n;
 
-    deque<pair<int,int>> dq; // {index, value}
-    int res = 0;
+  int cur = 1;
+  int u, v, k,x;
 
-    int cur = x;
-    for (int i = 0; i < n; i++) {
-        // push current value
-        while (!dq.empty() && dq.back().second >= cur) dq.pop_back();
-        dq.emplace_back(i, cur);
+  vector<vector<int>> adjl(n+1);
+  auto dfs = [&](){
 
-        // remove out-of-window
-        if (dq.front().first <= i - k) dq.pop_front();
+  }
 
-        // use min
-        if (i >= k - 1) res ^= dq.front().second;
 
-        // next value
-        cur = (cur * z + b) % c;
+  while(n--){
+    char choice; cin>>choice;
+    if(choice == '+'){ 
+      cin>>v>>x;
+
+
+    }else{
+      cin>>u>>v>>k;
+
     }
-
-    cout << res << "\n";
+  }
+  
 }
 
 //|------------------------------------------[MAIN]------------------------------------------|
@@ -42,7 +43,7 @@ int32_t main(){
   auto begin = std::chrono::high_resolution_clock::now();
   ios::sync_with_stdio(0); cin.tie(0);
   int t = 1;
-  // cin>> t;
+  cin>> t;
   for(int i = 1; i <= t; i++) 
     {
         //cout << "Case #" << i << ": \n";
