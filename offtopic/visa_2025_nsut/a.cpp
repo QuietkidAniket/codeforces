@@ -1,6 +1,6 @@
 /**
  *    author: Anicetus_7
- *    created: 2025-09-20 10:11:24
+ *    created: 2025-09-30 23:02:37
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -10,46 +10,29 @@ using namespace std;
 #define MAX (int)(20005)
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
+
 void Solve(){
-  int t;
-  int n; cin>> n; 
-  cin>>t;
-  vector<int> a(n);
-  for(auto& x : a)cin>> x;
-
-  vector<int> prefix(n+1,0);
-  prefix[0] = 0;
-  for(int i = 0; i< n; i++){ 
-    prefix[i+1] = prefix[i] + a[i];
+  string s; 
+  getline(cin, s);
+  for(char& c: s){
+    if('a' <= c && c <= 'z'){
+      c -= 32;
+    }else if('A' <= c && c <= 'Z'){
+      c += 32;
+    }
   }
-
-  int ans = 0;
-  for(int i = 0 ; i < n; i++){
-    int pos  = upper_bound(prefix.begin(),prefix.end(), 2*prefix[i]+t)- prefix.begin();
-    ans = max(ans, pos-i-1);
-  }
-  cout << ans << endl;
+  cout << s << endl;
 }
-// int solution(vector<int> a, int t){
-  //    int n = a.size();
-  //    int prefix[n+1] ;
-  //   for(int i = 0; i< n; i++){ 
-    
-  //   }
-  //   int ans = 0;
-//   int sum = 0;
-//   return ans;
-// }
 
 //|------------------------------------------[MAIN]------------------------------------------|
 int32_t main(){
   auto begin = std::chrono::high_resolution_clock::now();
   ios::sync_with_stdio(0); cin.tie(0);
   int t = 1;
-  cin>> t;
+  // cin>> t;
   for(int i = 1; i <= t; i++) 
     {
-        // cout << "Case #" << i << ": \n";
+        //cout << "Case #" << i << ": \n";
         Solve();
     }
   auto end = std::chrono::high_resolution_clock::now(); 

@@ -1,41 +1,19 @@
 /**
  *    author: Anicetus_7
- *    created: 2025-09-24 14:36:13
+ *    created: 2025-11-02 10:59:39
 **/
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
 #define INF (int)1e18
 #define MOD (int)(1e9 + 7)
-#define MAX (int)(20005)
+#define MAX (int)(200005)
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
-#define yes cout<<"YES\n";
-#define no cout<<"NO\n";
 
 void Solve(){
-  int n; cin>>n;
+  int r, x,d, n;cin>> r>>x>>d>>n;
 
-  int cur = 1;
-  int u, v, k,x;
-
-  vector<vector<int>> adjl(n+1);
-  auto dfs = [&](){
-
-  }
-
-
-  while(n--){
-    char choice; cin>>choice;
-    if(choice == '+'){ 
-      cin>>v>>x;
-
-
-    }else{
-      cin>>u>>v>>k;
-
-    }
-  }
-  
+  cout << n- max((x-r)/d, 0ll) << endl;
 }
 
 //|------------------------------------------[MAIN]------------------------------------------|

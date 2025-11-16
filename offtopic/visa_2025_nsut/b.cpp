@@ -1,6 +1,6 @@
 /**
  *    author: Anicetus_7
- *    created: 2025-09-20 10:46:10
+ *    created: 2025-09-20 10:11:24
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -11,51 +11,35 @@ using namespace std;
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
 void Solve(){
-  int n; cin>>n;
-  vector<vector<int>> grid(n, vector<int>(n));
-  for(int i = 0; i< n; i++)
-  {
-   for(int j = 0; j< n; j++)
-   {
-    cin>>grid[i][j];
-   } 
+  int t;
+  int n; cin>> n; 
+  cin>>t;
+  vector<int> a(n);
+  for(auto& x : a)cin>> x;
+
+  vector<int> prefix(n+1,0);
+  prefix[0] = 0;
+  for(int i = 0; i< n; i++){ 
+    prefix[i+1] = prefix[i] + a[i];
   }
 
-  
-  int ans1 =1e9;
-  int ans2= 1e9;
-  int t = (n-1)/2;
-  for(int x= 0; x <= 2; x++){
-    vector<vector<int>> vis(n, vector<int>(n,0));
-    int cnt = 0;
-    for(int i =0 ; i <= t; i++){ 
-      if(n-i-1 != i){
-        cnt += (grid[i][n-i-1] != x) + (grid[i][i] != x);
-      }else cnt += (grid[i][i] != x);
-      vis[i][i] = 1;
-      vis[i][n-1-i] =1; 
-    }
-    for(int i =t+1; i < n; i++){ 
-      cnt += (grid[i][t] != x);
-      vis[i][t]= 1;
-    }
-
-    int c = 0;
-    for(int i = 0; i <n; i++){
-      for(int j = 0; j <n; j++){
-        if(vis[i][j])continue;
-        c += (grid[i][j] != x);
-      }
-    }
-    ans1 = min(ans1, cnt);
-    ans2 = min(ans2, c);
-    // cout << ans1 << ", " << ans2 << endl;
+  int ans = 0;
+  for(int i = 0 ; i < n; i++){
+    int pos  = upper_bound(prefix.begin(),prefix.end(), 2*prefix[i]+t)- prefix.begin();
+    ans = max(ans, pos-i-1);
   }
-
-  cout <<ans1 + ans2 <<endl;
-
-  
+  cout << ans << endl;
 }
+// int solution(vector<int> a, int t){
+  //    int n = a.size();
+  //    int prefix[n+1] ;
+  //   for(int i = 0; i< n; i++){ 
+    
+  //   }
+  //   int ans = 0;
+//   int sum = 0;
+//   return ans;
+// }
 
 //|------------------------------------------[MAIN]------------------------------------------|
 int32_t main(){
@@ -65,7 +49,7 @@ int32_t main(){
   cin>> t;
   for(int i = 1; i <= t; i++) 
     {
-        //cout << "Case #" << i << ": \n";
+        // cout << "Case #" << i << ": \n";
         Solve();
     }
   auto end = std::chrono::high_resolution_clock::now(); 

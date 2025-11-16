@@ -1,72 +1,58 @@
+/**
+ *    author: Anicetus_7
+ *    created: 2025-11-04 20:42:05
+**/
 #include <bits/stdc++.h>
 using namespace std;
-typedef long double ld;
-typedef long long ll;
+#define int long long
+#define INF (int)1e18
+#define MOD (int)(1e9 + 7)
+#define MAX (int)(200005)
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
-bool multi = true;
-static const int mod = 1e9 + 7;
 
 void Solve(){
-  int n, k;
-  cin>> n>>k;
-  int arr[n];
-  for(int i = 0; i< n; i++)
-  {
-    cin >> arr[i];
+  int n,k; cin>>n >> k;
+  vector<vector<int>> a(k+1);
+  for(int i =1;i <= n; i++){
+    int x; cin>>x;
+    a[x].push_back(i);
   }
 
-  vector<vector<int>> intervals(k+1, vector<int>(2,0));
-  vector<int> prev(k+1,-1);
-  for(int i = 0; i <= n; i++){
-      if(i == n){
-        for(int x = 1; x <= k; x++){
-          if(intervals[x][1] < i - prev[x] -1){
-            intervals[x][0] = intervals[x][1];
-            intervals[x][1] = i - prev[x] -1;
-          }else if(intervals[x][0] < i - prev[x] -1){
-            intervals[x][0] = i- prev[x]-1;
-          }
-        }
-      }else{
-        int x = arr[i];
-        if(intervals[x][1] < i - prev[x] -1){
-          intervals[x][0] = intervals[x][1];
-          intervals[x][1] = i - prev[x] -1;
-        }else if(intervals[x][0] < i - prev[x] -1){
-          intervals[x][0] = i- prev[x]-1;
-        }
-        prev[x] = i;
-      }
+  multiset<int> st;
+
+  int ans = n+1;
+  for(int i =1;i <= k; i++){
+    st.clear();
+    a[i].push_back(0);
+    a[i].push_back(n+1);
+    sort(a[i].begin(), a[i].end());
+    for(int j= 0; j < a[i].size()-1; j++){
+      st.insert(a[i][j+1]-a[i][j]-1);
+    }
+    int lo = *(st.rbegin());
+    st.erase(st.find(lo));
+    lo--;
+    
+    st.insert(lo/2);
+    st.insert((lo+1)/2);
+    ans = min(ans, *(st.rbegin()));
   }
-  int ans = INT_MAX;
-  for(int x = 1; x <=k ; x++){
-    int interval = (int)intervals[x][1]/2;
-    intervals[x][1] = interval;
-    ans = min(ans, max(intervals[x][0], intervals[x][1]));
-  }
-  cout << ans;
+  cout << ans << endl;
 }
-int main()
-{
-  ios::sync_with_stdio(0);
-  cin.tie(0);
-  #ifndef ONLINE_JUDGE
+
+//|------------------------------------------[MAIN]------------------------------------------|
+int32_t main(){
   auto begin = std::chrono::high_resolution_clock::now();
-  freopen("/Users/aniketkundu12072004/codeforces/input.in", "r+", stdin);
-  freopen("/Users/aniketkundu12072004/codeforces/output.out", "w", stdout);
-  int tt = clock();
-  #endif
-  
+  ios::sync_with_stdio(0); cin.tie(0);
   int t = 1;
-  if(multi)cin>> t;
-  while(t--){
-  Solve();
-  cout << endl;
-  }
-  #ifndef ONLINE_JUDGE
-  auto end = std::chrono::high_resolution_clock::now();
-  auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
+  cin>> t;
+  for(int i = 1; i <= t; i++) 
+    {
+        //cout << "Case #" << i << ": \n";
+        Solve();
+    }
+  auto end = std::chrono::high_resolution_clock::now(); 
+  auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin); 
   cerr << "Time measured: " << elapsed.count() * 1e-9 << " seconds.\n"; 
-  #endif
   return 0;
 }
