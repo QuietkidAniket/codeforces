@@ -1,6 +1,6 @@
 /**
  *    author: Anicetus_7
- *    created: 2025-11-26 20:15:29
+ *    created: 2025-12-08 18:02:29
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -11,8 +11,25 @@ using namespace std;
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
 void Solve(){
-    
-    
+  int n,q; cin>>n>>q; 
+  vector<int> diff(n+2,0);
+  for(int i =0 ;i< q; i++){
+    int l,r;
+    cin>>l>>r;
+    diff[l]++; diff[r+1]--;
+  }
+  vector<int> a;
+  for(int i =1;i <= n; i++){
+    diff[i] += diff[i-1];
+    a.push_back(diff[i]);
+  }
+  sort(a.begin(), a.end());
+  int z = a.size();
+  if(z % 2 == 1){
+  cout << a[z/2] << endl;
+  }else{
+  	cout << (a[z/2] +  a[z/2+1])/2;
+  }
 }
 
 //|------------------------------------------[MAIN]------------------------------------------|
@@ -20,7 +37,7 @@ int32_t main(){
   auto begin = std::chrono::high_resolution_clock::now();
   ios::sync_with_stdio(0); cin.tie(0);
   int t = 1;
-  cin>> t;
+  // cin>> t;
   for(int i = 1; i <= t; i++) 
     {
         //cout << "Case #" << i << ": \n";

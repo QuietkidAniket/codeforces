@@ -7,38 +7,34 @@ using namespace std;
 #define int long long
 #define INF (int)1e18
 #define MOD (int)(1e9 + 7)
-#define MAX (int)(20005)
+#define MAX (int)(1005)
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
+
+char a[MAX][MAX];
+int pref[MAX][MAX];
+
 void Solve(){
-  int n,q; cin>>n>>q;
-
-
-  vector<string> a(n); 
-
-
-  for(auto& x : a)cin>> x;
-
-  int prefix[n][n+1] = {0};
-
-  for(int i = 0; i< n; i++)
-  {
-    for(int j = 0; j< n; j++)
-    {
-      prefix[i][j+1] = prefix[i][j] + (a[i][j] == '*');
-    } 
-  }
-
-  while(q--){
-    int y1, x1, y2, x2; cin>> y1>>x1>>y2>>x2;
-    int res =0;
-    for(int i = y1-1; i< y2; i++){
-      res += prefix[i][x2] - prefix[i][x1-1];
+  int n; cin>> n;
+  int q; cin>>q;
+  memset(pref, 0, sizeof pref);
+  for(int i = 1;i <= n ;i++){
+    for(int j =1; j <= n; j++){
+      cin>>a[i][j];
     }
-    cout << res<< endl;
   }
 
-  
+  for(int i =1; i <=n ;i++){
+    for(int j = 1;j <= n ;j++){
+      pref[i][j] = pref[i-1][j] + pref[i][j-1] + (a[i][j] == '*') -  pref[i-1][j-1];
+    }
+  }
+
+  for(int i = 0; i < q ;i++){
+    int r1,c1; cin>>r1>>c1;
+    int r2,c2; cin>>r2>>c2;
+    cout << pref[r2][c2]- pref[r2][c1-1] - pref[r1-1][c2] + pref[r1-1][c1-1] << endl;
+  }
 }
 
 //|------------------------------------------[MAIN]------------------------------------------|

@@ -1,6 +1,6 @@
 /**
  *    author: Anicetus_7
- *    created: 2025-11-26 20:15:29
+ *    created: 2025-12-15 18:19:33
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -11,9 +11,35 @@ using namespace std;
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
 void Solve(){
-    
-    
+  int n; cin>> n;
+  vector<int> a(n);
+  for(auto& x: a)cin>>x;
+
+  vector<int> pref(n+1, 0);
+  for(int i =0; i <n; i++){
+    pref[i+1] = pref[i]^a[i];
+  }
+
+  for(int i =0;i <n; i++){
+    if((pref[n] ^ pref[i+1]) == pref[i+1]){
+        cout << "Yes\n";
+        return;
+    }
+  } 
+  for(int i =0;i <n; i++){
+    for(int j = i+1; j <n; j++){
+      int x = pref[i+1];
+      int y = pref[j+1] ^pref[i+1];
+      int z = pref[n] ^pref[j+1];
+      if(x ==y && y ==z){
+          cout << "Yes\n";
+          return;
+      }
+    }
+  }
+  cout << "No\n";
 }
+
 
 //|------------------------------------------[MAIN]------------------------------------------|
 int32_t main(){

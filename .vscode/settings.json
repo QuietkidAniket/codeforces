@@ -113,5 +113,13 @@
         "thread": "cpp",
         "code": "cpp"
     },
-    "C_Cpp.errorSquiggles": "disabled"
+    "C_Cpp.errorSquiggles": "disabled",
+    "editor.inlineSuggest.edits.showCollapsed": true,
+    "editor.inlineSuggest.showToolbar": "onHover",
+    "editor.inlineSuggest.suppressSuggestions": false,
+    "editor.inlineSuggest.edits.renderSideBySide": "auto",
+    "editor.inlineSuggest.experimental.emptyResponseInformation": true,
+    "editor.quickSuggestions": {
+        "other": "off"
+    }
 }

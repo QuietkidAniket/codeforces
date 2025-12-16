@@ -1,6 +1,6 @@
 /**
  *    author: Anicetus_7
- *    created: 2025-11-26 20:15:29
+ *    created: 2025-12-15 20:55:41
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -9,10 +9,20 @@ using namespace std;
 #define MOD (int)(1e9 + 7)
 #define MAX (int)(200005)
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
+int modPow(int base, int exp) {
+  int res = 1;
+  while (exp > 0) {
+      if (exp & 1ll) res = (res * base) % MOD;
+      base = (base * base) % MOD;
+      exp >>= 1ll;
+  }
+  return res;
+}
+
 
 void Solve(){
-    
-    
+  int n,k; cin>>n>>k;
+  cout << modPow(n,k) << endl;
 }
 
 //|------------------------------------------[MAIN]------------------------------------------|

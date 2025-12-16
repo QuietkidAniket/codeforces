@@ -1,6 +1,6 @@
 /**
  *    author: Anicetus_7
- *    created: 2025-11-26 20:15:29
+ *    created: 2025-12-16 17:28:26
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -11,8 +11,31 @@ using namespace std;
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
 void Solve(){
-    
-    
+  int n; cin>>n;
+  int eq= 0, a= 0, b = 0;
+  vector<pair<char,char>> vec(n);
+  for(int i =0;i < n; i++){
+    cin>>vec[i].first;
+  }
+  for(int i =0;i < n; i++){
+    cin>>vec[i].second;
+  }
+  for(auto& [ai, bi] : vec){
+    if(ai > bi){
+      a++;
+    }else if(ai < bi){
+      b++;
+    }else{
+      eq++;
+    }
+  }
+  if(a > b){
+    cout << "RED\n" ;
+  }else if(a< b){
+    cout << "BLUE\n" ;
+  }else{
+    cout << "EQUAL\n";
+  }
 }
 
 //|------------------------------------------[MAIN]------------------------------------------|

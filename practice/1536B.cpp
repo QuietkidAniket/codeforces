@@ -1,6 +1,6 @@
 /**
  *    author: Anicetus_7
- *    created: 2025-11-26 20:15:29
+ *    created: 2025-12-15 20:58:39
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -11,8 +11,42 @@ using namespace std;
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
 void Solve(){
-    
-    
+  int n; cin>>n;
+  string s; cin>>s;
+
+  for(char a= 'a' ; a<= 'z' ; a++){
+    if(s.find(a) == string::npos){
+      cout << a<< endl;
+      return;
+    }
+  }
+  for(char a= 'a' ; a<= 'z' ; a++){
+    for(char c= 'a' ; c<= 'z' ; c++){
+      string t; 
+      t.push_back(a);
+      t.push_back(c);
+      if(s.find(t) == string::npos){
+        cout << t<< endl;
+        return;
+      }
+    }
+  }
+  for(char a= 'a' ; a<= 'z' ; a++){
+    for(char c= 'a' ; c<= 'z' ; c++){
+    for(char d= 'a' ; d<= 'z' ; d++){
+        string t; 
+        t.push_back(a);
+        t.push_back(c);
+        t.push_back(d);
+        if(s.find(t) == string::npos){
+          cout << t<< endl;
+          return;
+        }
+      }
+    }
+  }
+  cout << "aaaa" <<endl;
+  
 }
 
 //|------------------------------------------[MAIN]------------------------------------------|
@@ -31,3 +65,5 @@ int32_t main(){
   cerr << "Time measured: " << elapsed.count() * 1e-9 << " seconds.\n"; 
   return 0;
 }
+
+

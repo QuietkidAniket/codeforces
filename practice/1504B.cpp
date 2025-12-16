@@ -1,6 +1,6 @@
 /**
  *    author: Anicetus_7
- *    created: 2025-11-26 20:15:29
+ *    created: 2025-12-16 16:13:52
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -11,8 +11,27 @@ using namespace std;
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
 void Solve(){
-    
-    
+  int n; cin>>n;
+  string a, b; cin>>a>>b;
+  int par = 1; // 1-> equal, 0-> not equal
+  int zeros =0, ones = 0;
+  for(int i =0;i < n; i++){
+    if((a[i] == b[i]) ^ (par)){
+      if(zeros != ones){
+        cout << "NO\n";
+        return;
+      }
+    }
+    zeros += a[i]=='0';
+    ones += a[i]=='1';
+    par = a[i] == b[i];
+  }
+  if(!par && ones != zeros){
+    cout << "NO\n";
+    return;
+  }
+  cout << "YES\n";
+  
 }
 
 //|------------------------------------------[MAIN]------------------------------------------|
