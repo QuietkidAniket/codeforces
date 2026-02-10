@@ -11,14 +11,15 @@ using namespace std;
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
 void Solve(){
-  int n; cin>>n;
-  int dp[n+1]  = {0};
+  int n,a,b; cin>>n>>a>>b;
+  vector<int> dp(6*n+1, 0);
   
   dp[0] = 1ll;
-  for(int t = 1; t<=n; t++)
-  for(int outcome = 1; outcome<= 6; outcome++)if(outcome <= t)dp[t] = (dp[t]+dp[t-outcome])%MOD;
-  
-  cout << dp[n] <<endl;
+  for(int t = 1; t<=6*n; t++)
+  for(int outcome = 6; outcome>= 1; outcome--)if(outcome <= t)dp[t] = (dp[t]+dp[t-outcome]);
+  double sum  = 0;
+  for(int i = a; i<= b; i++)sum += dp[i];
+  cout << (sum/(double)pow(6,n)) <<endl;
 }
 
 //|------------------------------------------[MAIN]------------------------------------------|
@@ -37,3 +38,4 @@ int32_t main(){
   cerr << "Time measured: " << elapsed.count() * 1e-9 << " seconds.\n"; 
   return 0;
 }
+ 

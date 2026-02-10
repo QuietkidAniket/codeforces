@@ -1,67 +1,98 @@
 /**
  *    author: Anicetus_7
- *    created: 2025-09-12 10:38:11
+ *    created: 2026-01-03 00:41:21
 **/
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
 #define INF (int)1e18
 #define MOD (int)(1e9 + 7)
-#define MAX (int)(20005)
+#define MAX (int)(200005)
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
-struct segtree{
-  vector<int> tree;
-  int sz;
-  void init(int n){
-    sz = 1;
-    while(sz < n) sz <<= 1;
-    tree.assign(2*sz, 0);
-  }
-  void set(int i, int v){
-    int x = i + sz;
-    tree[x] = v;
-    for(x >>= 1; x; x >>= 1){
-      tree[x] = tree[2*x] + tree[2*x+1];
+struct SegTree {
+    int n;
+    vector<int> seg;
+    vector<int> lazy;
+
+    SegTree(int _n) {
+        n = _n;
+        seg.assign(4 * n + 5, 0);
+        lazy.assign(4 * n + 5, 0);
     }
-  }
-  int get(int l, int r){ // sum on [l, r)
-    int res = 0;
-    l += sz; r += sz;
-    while(l < r){
-      if(l & 1) res += tree[l++];
-      if(r & 1) res += tree[--r];
-      l >>= 1; r >>= 1;
+
+    void push(int l, int r, int pos) {
+        if (lazy[pos] == 0) return;
+        seg[pos] += lazy[pos] * (r - l + 1);
+        if (l != r) {
+            lazy[pos * 2] += lazy[pos];
+            lazy[pos * 2 + 1] += lazy[pos];
+        }
+        lazy[pos] = 0;
     }
-    return res;
-  }
+
+    void build(const vector<int>& a, int l, int r, int pos) {
+        if (l == r) {
+            seg[pos] = a[l - 1];
+            return;
+        }
+        int mid = (l + r) / 2;
+        build(a, l, mid, pos * 2);
+        build(a, mid + 1, r, pos * 2 + 1);
+        seg[pos] = seg[pos * 2] + seg[pos * 2 + 1];
+    }
+
+    void update(int l, int r, int pos, int ql, int qr, int qval) {
+        push(l, r, pos);
+        if (ql > r || qr < l) return;
+        if (ql <= l && qr >= r) {
+            lazy[pos] += qval;
+            push(l, r, pos);
+            return;
+        }
+        int mid = (l + r) / 2;
+        update(l, mid, pos * 2, ql, qr, qval);
+        update(mid + 1, r, pos * 2 + 1, ql, qr, qval);
+        seg[pos] = seg[pos * 2] + seg[pos * 2 + 1];
+    }
+
+    int query(int l, int r, int pos, int ql, int qr) {
+        push(l, r, pos);
+        if (ql > r || qr < l) return 0;
+        if (ql <= l && qr >= r) return seg[pos];
+        int mid = (l + r) / 2;
+        return query(l, mid, pos * 2, ql, qr) + query(mid + 1, r, pos * 2 + 1, ql, qr);
+    }
+
+    void build(const vector<int>& a) { build(a, 1, n, 1); }
+    void update(int ql, int qr, int val) { update(1, n, 1, ql, qr, val); }
+    int query(int ql, int qr) { return query(1, n, 1, ql, qr); }
 };
 
 void Solve(){
-  int n,q; cin>> n >> q;
+  int n,q; cin>>n>>q;
+  vector<int> a(n);
+  for(auto& x : a)cin>> x;
 
-  vector<int> a(n); for(auto& x : a)cin>> x;
-  // Sqrt_decomposition sd;
-  // sd.init(a);
+  SegTree sgt(n);
+  sgt.build(a);
 
-  segtree st;
-  st.init(n);
+  for(int i = 0; i < q ; i++){
+    int choice; cin>>choice;
 
-  for(int i = 0 ; i < n; i++){
-    st.set(i,a[i]);
-  }
-
-  for(int i =0 ; i < q; i++){
-    int c; cin>>c;
-    
-    if(c == 1){
-      int k, u; cin>>k>>u;
-      st.set(k-1, u);
+    if(choice == 1){
+      int idx; cin>>idx;
+      int val; cin>>val;
+      int diff = val - a[idx-1];
+      a[idx-1] = val;
+      sgt.update(idx, idx, diff);
     }else{
-      int l,r; cin>>l>>r;
-      cout << st.get(l-1, r) <<endl;
+      int l, r; cin>>l>>r;
+      cout << sgt.query(l,r) << endl;
     }
   }
+  cout << endl;
+  
 }
 
 //|------------------------------------------[MAIN]------------------------------------------|

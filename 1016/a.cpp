@@ -10,10 +10,8 @@ void Solve(){
   int n; cin>> n;
   if(n&1)cout << "YES";
   else cout << "NO";
-  
 }
-int main()
-{
+int main(){
   ios::sync_with_stdio(0);
   cin.tie(0);
   #ifndef ONLINE_JUDGE
@@ -22,7 +20,7 @@ int main()
   freopen("/Users/aniketkundu12072004/codeforces/output.out", "w", stdout);
   int tt = clock();
   #endif
-  
+
   int t = 1;
   if(multi)cin>> t;
   while(t--){
@@ -32,7 +30,7 @@ int main()
   #ifndef ONLINE_JUDGE
   auto end = std::chrono::high_resolution_clock::now();
   auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
-  cerr << "Time measured: " << elapsed.count() * 1e-9 << " seconds.\n"; 
+  cerr << "Time measured: " << elapsed.count() * 1e-9 << " seconds.\n";
   #endif
   return 0;
 }

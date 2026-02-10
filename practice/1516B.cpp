@@ -25,7 +25,7 @@ void Solve(){
         cout << "Yes\n";
         return;
     }
-  } 
+  }
   for(int i =0;i <n; i++){
     for(int j = i+1; j <n; j++){
       int x = pref[i+1];
@@ -47,13 +47,13 @@ int32_t main(){
   ios::sync_with_stdio(0); cin.tie(0);
   int t = 1;
   cin>> t;
-  for(int i = 1; i <= t; i++) 
+  for(int i = 1; i <= t; i++)
     {
         //cout << "Case #" << i << ": \n";
         Solve();
     }
-  auto end = std::chrono::high_resolution_clock::now(); 
-  auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin); 
-  cerr << "Time measured: " << elapsed.count() * 1e-9 << " seconds.\n"; 
+  auto end = std::chrono::high_resolution_clock::now();
+  auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
+  cerr << "Time measured: " << elapsed.count() * 1e-9 << " seconds.\n";
   return 0;
 }

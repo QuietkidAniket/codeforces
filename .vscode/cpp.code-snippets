@@ -1,18 +1,4 @@
 {
-	// Place your snippets for cpp here. Each snippet is defined under a snippet name and has a prefix, body and 
-	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
-	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
-	// same ids are connected.
-	// Example:
-	// "Print to console": {
-	// 	"prefix": "log",
-	// 	"body": [
-	// 		"console.log('$1');",
-	// 		"$2"
-	// 	],
-	// 	"description": "Log output to console"
-	// }
-
     "CP File header":
     {
         "prefix": "headercp",
@@ -24,11 +10,11 @@
         ],
         "description": "Adds a Anicetus_7 style file header"
     },
-    "boilerplate": 
-    { 
-        
-    "prefix" : "boilerplate1", 
-    "body" : [ 
+    "boilerplate":
+    {
+
+    "prefix" : "boilerplate1",
+    "body" : [
         "/**",
         " *    author: Anicetus_7",
         " *    created: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE} ${CURRENT_HOUR}:${CURRENT_MINUTE}:${CURRENT_SECOND}",
@@ -62,16 +48,16 @@
         "  cerr << \"Time measured: \" << elapsed.count() * 1e-9 << \" seconds.\\n\"; ",
         "  return 0;",
         "}",
-    ], 
+    ],
     "description" : "Competitive Programming snippet for C++ code"
     },
-    "leetcode": 
-    { 
-        "prefix" : "leetcode", 
-                   "body" : [ 
+    "leetcode":
+    {
+        "prefix" : "leetcode",
+                   "body" : [
                        "#include <bits/stdc++.h>",
                         "using namespace std;",
-                        "", 
+                        "",
                         "void solve(){",
                         "\tSolution obj;",
                         "\tstring exp;",
@@ -80,7 +66,7 @@
                         "\tcout << '\\n';",
                         "}",
                        "int main()",
-                       "{", 
+                       "{",
                        "\tios::sync_with_stdio(0);",
                        "\tcin.tie(0);",
                        "\tcout.tie(0);",
@@ -89,10 +75,10 @@
                        "\tsolve();",
                        "\t",
                        "\t",
-                       "\treturn 0;", 
+                       "\treturn 0;",
                        "}"
-  
-                   ], 
+
+                   ],
         "description" : "Competitive Programming snippet for C++ code"
     },
     "Disjoint Set":{
@@ -134,7 +120,7 @@
     "prefix": "tree_lca",
     "body": [
       "struct Tree {",
-      "    vector<vector<int>> adj, lift;",    
+      "    vector<vector<int>> adj, lift;",
       "    vector<int> d, tin, tout, par;",
       "    int n, timer;",
       "    bool initialized = false;",
@@ -813,7 +799,7 @@
 	"description": "Treap (Cartesian Tree) with Split, Merge, Insert, Erase, Union"
     },
 
-    "power": 
+    "power":
     {
     "prefix" : "power",
         "body" : [
@@ -893,7 +879,7 @@
 
     },
 
-    "input": 
+    "input":
     {
     "prefix" : "ci",
         "body" : [
@@ -901,7 +887,7 @@
             ],
             "description": "to produce the snippet for cin >> "
     },
-    "output": 
+    "output":
     {
     "prefix" : "co",
         "body" : [
@@ -909,8 +895,8 @@
             ],
             "description": "to produce the snippet for cout << "
     },
-    
-    "for loop": 
+
+    "for loop":
     {
     "prefix" : "fi",
         "body" : [
@@ -922,7 +908,7 @@
             "description": "to produce the snippet for for loop"
     },
 
-    "for loop with variable j": 
+    "for loop with variable j":
     {
     "prefix" : "fj",
         "body" : [
@@ -934,7 +920,7 @@
             "description": "to produce the snippet for for loop"
     },
 
-    "input loop": 
+    "input loop":
     {
     "prefix" : "li",
         "body" : [
@@ -945,7 +931,7 @@
             ],
             "description": "to produce the snippet for input loop"
     },
-    "display loop": 
+    "display loop":
     {
     "prefix" : "di",
         "body" : [
@@ -957,7 +943,7 @@
             ],
             "description": "to produce the snippet for display loop"
     },
-    "for each loop": 
+    "for each loop":
     {
     "prefix" : "efi",
         "body" : [
@@ -1036,7 +1022,7 @@
             "#undef int",
             "#include <ext/pb_ds/assoc_container.hpp>",
             "using namespace __gnu_pbds;",
-            "", 
+            "",
             "template<typename Key, typename Value>",
             "using umap = gp_hash_table<Key, Value>;",
             "#define int long long"
@@ -1108,7 +1094,7 @@
         "};"
             ]
     },
-    
+
     "Modular Integer data type":{
         "prefix": "Mint",
         "body": [
