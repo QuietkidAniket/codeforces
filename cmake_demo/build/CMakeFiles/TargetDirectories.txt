@@ -1,0 +1,4 @@
+/Users/aniketkundu12072004/codeforces/cmake_demo/build/CMakeFiles/MathLogic.dir
+/Users/aniketkundu12072004/codeforces/cmake_demo/build/CMakeFiles/a.out.dir
+/Users/aniketkundu12072004/codeforces/cmake_demo/build/CMakeFiles/edit_cache.dir
+/Users/aniketkundu12072004/codeforces/cmake_demo/build/CMakeFiles/rebuild_cache.dir

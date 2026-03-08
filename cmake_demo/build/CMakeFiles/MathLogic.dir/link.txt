@@ -1,0 +1,2 @@
+/usr/bin/ar qc libMathLogic.a CMakeFiles/MathLogic.dir/src/logic.cpp.o
+/usr/bin/ranlib libMathLogic.a

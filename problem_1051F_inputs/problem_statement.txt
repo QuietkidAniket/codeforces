@@ -1,0 +1,50 @@
+The Crucible of Glory
+Time limit per test: 4 seconds
+Memory limit per test: 256 megabytes
+In the shattered realm of Aethelgard, true glory is not inherited; it is forged through unimaginable hardship. The realm consists of $n$ ancient strongholds, connected by $m$ treacherous, war-torn paths. The Great Cataclysm destroyed most of the kingdom's infrastructure, leaving the strongholds barely connected. In fact, the roads are so sparse that the number of paths is scarcely more than the number of strongholds (specifically, $m - n \le 20$).Every path can be traversed in either direction, but each journey takes a brutal toll on a warrior's body and spirit. This toll is known as the path's Hardship, represented by a weight $d_i$.To coordinate the final stand against the encroaching darkness, the High Warlord has issued $q$ glorious decrees. Each decree commands a champion to carry out a vital mission, traveling from a starting stronghold $u_i$ to a destination stronghold $v_i$.To survive the journey and claim eternal glory, a champion must plan their route carefully. For each of the $q$ missions, you must determine the path that minimizes the total Hardship endured between the two strongholds.InputThe first line contains two integers $n$ and $m$ (1 $\le$ $n$, $m$ $\le$ $10^5$, $m - n \le 20$) — the number of strongholds and the number of war-torn paths in the realm.The next $m$ lines describe the paths: the $i$-th path is a triple of integers $v_i$, $u_i$, $d_i$ (1 $\le$ $u_i$, $v_i$ $\le$ $n$, 1 $\le$ $d_i$ $\le$ $10^9$, $u_i \ne v_i$). This triple means that there is a path between stronghold $u_i$ and stronghold $v_i$ that inflicts a Hardship of $d_i$. It is guaranteed that the realm is fully connected, and there are no self-loops or multiple paths directly connecting the same pair of strongholds.The next line contains a single integer $q$ (1 $\le$ $q$ $\le$ $10^5$) — the number of glorious decrees (queries).Each of the next $q$ lines contains two integers $u_i$ and $v_i$ (1 $\le$ $u_i$, $v_i$ $\le$ $n$) — the starting and destination strongholds for the $i$-th mission.Pay close attention to the restriction $m - n \le 20$.OutputPrint $q$ lines.The $i$-th line should contain the answer to the $i$-th mission — the minimum total Hardship required to travel between strongholds $u_i$ and $v_i$.
+
+Examples
+
+Input
+1 2 3
+2 3 1
+3 1 5
+3
+1 2
+1 3
+2 3
+Output
+4
+1
+
+Input
+1 2 4
+2 3 6
+3 4 1
+4 5 12
+5 6 3
+6 7 8
+7 8 7
+1 4 1
+1 8 3
+2 6 9
+2 7 1
+4 6 3
+6 8 2
+8
+1 5
+1 7
+2 3
+2 8
+3 7
+3 4
+6 8
+7 8
+Output
+5
+6
+7
+7
+1
+2
+7
