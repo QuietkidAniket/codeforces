@@ -18,7 +18,7 @@ void Solve() {
   for (int i = 0; i < n; i++) {
     cin >> a[i].first.first >> a[i].first.second;
     a[i].second = i;
-  }
+  
   sort(a.begin(), a.end());
 
   int mnl = INF, mxr = -INF, cnt = 0;

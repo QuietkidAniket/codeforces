@@ -10,8 +10,17 @@ using namespace std;
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
 void Solve(){
-    
-
+    int n; cin>>n;
+    vector<int> a(n); for(auto& x : a)cin>> x;
+    int idx =0;
+    for(int i =0; i <n; i++){
+        if(a[i] == n)idx=i;
+    }
+    swap(a[0], a[idx]);
+    for(int i =0 ;i < n; i++){
+        cout << a[i] << " ";
+    }
+    cout << endl;
 }
 
 //|------------------------------------------[MAIN]------------------------------------------|

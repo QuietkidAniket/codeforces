@@ -8,7 +8,7 @@ using namespace std;
 #define MOD (int)(1e9 + 7)
 #define MAX (int)(200005)
 mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
-
+    
 void Solve(){
     string s; cin>>s;
     int n= s.size();
